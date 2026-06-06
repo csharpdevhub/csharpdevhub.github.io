@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JWT Authentication in ASP.NET Core - Complete Guide with Examples</title>
+
+    <meta name="description"
+          content="Learn JWT Authentication in ASP.NET Core with practical examples. Understand JSON Web Tokens, authentication, authorization, claims, token validation, API security, and best practices.">
+
+    <meta name="keywords"
+          content="JWT Authentication ASP.NET Core, ASP.NET Core JWT Authentication, JSON Web Token Tutorial, ASP.NET Core API Security, JWT Token Authentication, ASP.NET Core Authentication Tutorial, ASP.NET Core Authorization, Secure ASP.NET Core API, JWT Bearer Authentication, ASP.NET Core Claims Authentication, Token Based Authentication ASP.NET Core, ASP.NET Core Security Best Practices">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+           <article class="tutorial-article">
+
+    <header class="article-header">
+
+        <h1>JWT Authentication in ASP.NET Core: Complete Beginner's Guide</h1>
+
+        <p class="article-meta">
+            Published: June 2026 |
+            Category: ASP.NET Core Security |
+            Reading Time: 15 Minutes
+        </p>
+
+        <p>
+            Authentication is one of the most important aspects of modern web
+            application development. When building APIs, you need a secure way
+            to verify the identity of users and control access to protected
+            resources.
+        </p>
+
+        <p>
+            JSON Web Tokens (JWT) have become one of the most popular solutions
+            for securing ASP.NET Core APIs because they are lightweight,
+            scalable, and easy to integrate with web, mobile, and desktop
+            applications.
+        </p>
+
+        <p>
+            In this tutorial, you'll learn how JWT Authentication works,
+            how to configure it in ASP.NET Core, generate tokens,
+            protect API endpoints, and follow security best practices.
+        </p>
+
+    </header>
+    <br />
+    <div class="note">
+
+        <strong>Topics Covered</strong>
+
+        <ul>
+            <li>What is JWT?</li>
+            <li>Authentication vs Authorization</li>
+            <li>JWT Structure</li>
+            <li>Configuring JWT Authentication</li>
+            <li>Generating Tokens</li>
+            <li>Protecting API Endpoints</li>
+            <li>Using Claims</li>
+            <li>Security Best Practices</li>
+        </ul>
+
+    </div>
+
+    <h2>What Is JWT?</h2>
+
+    <p>
+        JWT stands for JSON Web Token. It is a compact, URL-safe token format
+        used to securely transmit information between parties.
+    </p>
+
+    <p>
+        After a user successfully logs in, the server generates a token and
+        returns it to the client. The client then sends the token with future
+        requests to prove its identity.
+    </p>
+
+    <p>
+        JWT is commonly used in:
+    </p>
+
+    <ul>
+        <li>ASP.NET Core Web APIs</li>
+        <li>Single Page Applications (SPA)</li>
+        <li>Mobile Applications</li>
+        <li>Microservices</li>
+        <li>Cloud-based systems</li>
+    </ul>
+
+    <h2>Authentication vs Authorization</h2>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Concept</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Authentication</td>
+                <td>Verifies who the user is.</td>
+            </tr>
+
+            <tr>
+                <td>Authorization</td>
+                <td>Determines what the user can access.</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <p>
+        JWT primarily handles authentication, but it can also contain
+        authorization information such as user roles and permissions.
+    </p>
+
+    <h2>JWT Token Structure</h2>
+
+    <p>
+        A JWT consists of three parts separated by periods:
+    </p>
+
+    <pre><code>
+        Header.Payload.Signature
+    </code></pre>
+
+    <p>
+        Example:
+    </p>
+
+    <pre><code>
+        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        .
+        eyJzdWIiOiIxMjMiLCJuYW1lIjoiSm9obiJ9
+        .
+        abc123xyz456
+    </code></pre>
+
+    <h3>Header</h3>
+
+    <p>
+        Contains token metadata such as the signing algorithm.
+    </p>
+
+    <h3>Payload</h3>
+
+    <p>
+        Contains claims about the user.
+    </p>
+
+    <h3>Signature</h3>
+
+    <p>
+        Ensures the token has not been modified.
+    </p>
+
+    <h2>Create a New ASP.NET Core Web API</h2>
+
+    <pre><code>
+        dotnet new webapi -n JwtDemo
+
+        cd JwtDemo
+    </code></pre>
+
+    <p>
+        Run the application:
+    </p>
+
+    <pre><code>
+        dotnet run
+    </code></pre>
+
+    <h2>Install JWT Package</h2>
+
+    <pre><code>
+        dotnet add package
+        Microsoft.AspNetCore.Authentication.JwtBearer
+    </code></pre>
+
+    <p>
+        This package provides JWT authentication support for ASP.NET Core.
+    </p>
+
+    <h2>Add JWT Settings</h2>
+
+    <p>
+        Store configuration values inside appsettings.json.
+    </p>
+
+    <pre><code>
+        {
+        "Jwt": {
+        "Key": "YourVeryStrongSecretKey",
+        "Issuer": "CSharpHub",
+        "Audience": "CSharpHubUsers"
+        }
+        }
+    </code></pre>
+
+    <div class="note">
+
+        <strong>Important:</strong>
+
+        Never store production secrets directly in source control.
+        Use environment variables, User Secrets, or secure secret storage solutions.
+
+    </div>
+
+    <h2>Configure Authentication</h2>
+
+    <p>
+        Register JWT authentication in Program.cs.
+    </p>
+
+    <pre><code>
+        using Microsoft.AspNetCore.Authentication.JwtBearer;
+        using Microsoft.IdentityModel.Tokens;
+        using System.Text;
+
+        var key =
+        Encoding.UTF8.GetBytes(
+        builder.Configuration["Jwt:Key"]);
+
+        builder.Services
+        .AddAuthentication(
+        JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+        options.TokenValidationParameters =
+        new TokenValidationParameters
+        {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer =
+        builder.Configuration["Jwt:Issuer"],
+
+        ValidAudience =
+        builder.Configuration["Jwt:Audience"],
+
+        IssuerSigningKey =
+        new SymmetricSecurityKey(key)
+        };
+        });
+    </code></pre>
+
+    <h2>Enable Authentication Middleware</h2>
+
+    <pre><code>
+        app.UseAuthentication();
+
+        app.UseAuthorization();
+    </code></pre>
+
+    <p>
+        Authentication middleware should be registered before authorization.
+    </p>
+
+    <h2>Create a Login Model</h2>
+
+    <pre><code>
+        public class LoginRequest
+        {
+        public string Username { get; set; } = "";
+
+        public string Password { get; set; } = "";
+        }
+    </code></pre>
+
+    <h2>Generate JWT Tokens</h2>
+
+    <pre><code>
+        using System.IdentityModel.Tokens.Jwt;
+        using System.Security.Claims;
+        using Microsoft.IdentityModel.Tokens;
+        using System.Text;
+
+        public string GenerateToken(
+        string username)
+        {
+        var claims = new[]
+        {
+        new Claim(
+        ClaimTypes.Name,
+        username)
+        };
+
+        var key =
+        new SymmetricSecurityKey(
+        Encoding.UTF8.GetBytes(
+        _configuration["Jwt:Key"]));
+
+        var credentials =
+        new SigningCredentials(
+        key,
+        SecurityAlgorithms.HmacSha256);
+
+        var token =
+        new JwtSecurityToken(
+        issuer:
+        _configuration["Jwt:Issuer"],
+        audience:
+        _configuration["Jwt:Audience"],
+        claims: claims,
+        expires:
+        DateTime.Now.AddHours(1),
+        signingCredentials:
+        credentials);
+
+        return new JwtSecurityTokenHandler()
+        .WriteToken(token);
+        }
+    </code></pre>
+
+    <h2>Create a Login Endpoint</h2>
+
+    <pre><code>
+        [HttpPost("login")]
+        public IActionResult Login(
+        LoginRequest request)
+        {
+        if (request.Username == "admin" &&
+        request.Password == "password")
+        {
+        var token =
+        GenerateToken(
+        request.Username);
+
+        return Ok(new
+        {
+        Token = token
+        });
+        }
+
+        return Unauthorized();
+        }
+    </code></pre>
+
+    <p>
+        After successful authentication, the API returns a JWT token.
+    </p>
+
+    <h2>Protect Endpoints</h2>
+
+    <p>
+        Use the Authorize attribute to secure endpoints.
+    </p>
+
+    <pre><code>
+        using Microsoft.AspNetCore.Authorization;
+
+        [Authorize]
+        [HttpGet("profile")]
+        public IActionResult Profile()
+        {
+        return Ok("Protected Data");
+        }
+    </code></pre>
+
+    <p>
+        Only authenticated users with valid tokens can access this endpoint.
+    </p>
+
+    <h2>Sending Tokens from Clients</h2>
+
+    <p>
+        Include the token in the Authorization header.
+    </p>
+
+    <pre><code>
+        Authorization:
+        Bearer eyJhbGciOi...
+    </code></pre>
+
+    <p>
+        ASP.NET Core automatically validates the token.
+    </p>
+
+    <h2>Using Claims</h2>
+
+    <p>
+        Claims store information about the authenticated user.
+    </p>
+
+    <pre><code>
+        var username =
+        User.Identity?.Name;
+    </code></pre>
+
+    <pre><code>
+        var role =
+        User.FindFirst(
+        ClaimTypes.Role)?.Value;
+    </code></pre>
+
+    <p>
+        Claims can be used for role-based authorization.
+    </p>
+
+    <h2>Role-Based Authorization</h2>
+
+    <pre><code>
+        [Authorize(Roles = "Admin")]
+        [HttpGet("admin")]
+        public IActionResult AdminOnly()
+        {
+        return Ok();
+        }
+    </code></pre>
+
+    <p>
+        Only users with the Admin role can access the endpoint.
+    </p>
+
+    <h2>Common JWT Mistakes</h2>
+
+    <ul>
+        <li>Using weak secret keys.</li>
+        <li>Storing secrets in source code.</li>
+        <li>Creating tokens that never expire.</li>
+        <li>Skipping HTTPS.</li>
+        <li>Trusting client-side validation.</li>
+        <li>Exposing sensitive information inside claims.</li>
+    </ul>
+
+    <h2>JWT Security Best Practices</h2>
+
+    <ul>
+        <li>Use strong signing keys.</li>
+        <li>Store secrets securely.</li>
+        <li>Always use HTTPS.</li>
+        <li>Set reasonable expiration times.</li>
+        <li>Implement refresh tokens when needed.</li>
+        <li>Validate all incoming tokens.</li>
+        <li>Use role-based authorization carefully.</li>
+    </ul>
+    <br />
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>Why use JWT instead of sessions?</h3>
+
+    <p>
+        JWT works well in distributed systems because the server does not
+        need to store session data for every user.
+    </p>
+
+    <h3>Can JWT be used with ASP.NET Core APIs?</h3>
+
+    <p>
+        Yes. JWT is one of the most common authentication methods for
+        ASP.NET Core Web APIs.
+    </p>
+
+    <h3>Should JWT tokens expire?</h3>
+
+    <p>
+        Yes. Tokens should always have an expiration time to reduce security risks.
+    </p>
+
+    <h3>Can JWT contain user roles?</h3>
+
+    <p>
+        Yes. Claims can store roles and permissions used for authorization.
+    </p>
+
+    <h2>Related Tutorials</h2>
+
+    <ul>
+        <li><a href="build-rest-api-in-aspnet-core.html">Build a REST API in ASP.NET Core</a></li>
+        <li><a href="dependency-injection-in-aspnet-core.html">Dependency Injection in ASP.NET Core</a></li>
+        <li><a href="using-httpclient-in-csharp.html">Using HttpClient in C#</a></li>
+        <li><a href="aspnet-core-middleware.html">ASP.NET Core Middleware</a></li>
+        <li><a href="exception-handling-in-csharp.html">Exception Handling in C#</a></li>
+        <li><a href="aspnet-core-mvc-tutorial.html">ASP.NET Core MVC Tutorial</a></li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>
+        JWT Authentication provides a secure and scalable way to protect
+        ASP.NET Core applications and APIs. By understanding token generation,
+        validation, claims, and authorization, you can build secure systems
+        that support modern web and mobile applications.
+    </p>
+
+    <p>
+        Combining JWT with HTTPS, strong secret management, and proper
+        authorization strategies will help keep your applications secure
+        while providing a smooth user experience.
+    </p>
+
+</article>
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
