@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Consume External APIs in ASP.NET Core</title>
+
+    <meta name="description"
+          content="Learn how to consume external APIs in ASP.NET Core using HttpClient and HttpClientFactory. Handle JSON responses, authentication, error handling, and API integration best practices.">
+
+    <meta name="keywords"
+          content="Consume External APIs ASP.NET Core, ASP.NET Core API Integration, HttpClient ASP.NET Core, HttpClientFactory Tutorial, Call External API ASP.NET Core, ASP.NET Core REST API Client, ASP.NET Core JSON API, External API Authentication ASP.NET Core, ASP.NET Core API Best Practices, API Consumption in ASP.NET Core, ASP.NET Core Web API Client, ASP.NET Core Third Party APIs">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+            <article class="tutorial-article">
+
+    <header class="article-header">
+
+        <h1>Consume External APIs in ASP.NET Core: Complete Beginner Guide</h1>
+
+        <p class="article-meta">
+            Published: June 2026 |
+            Category: ASP.NET Core |
+            Reading Time: 15 Minutes
+        </p>
+
+        <p>
+            Modern applications rarely operate in isolation. Most web applications
+            communicate with external services to retrieve data, process payments,
+            send notifications, authenticate users, access cloud resources,
+            or integrate with third-party platforms.
+        </p>
+
+        <p>
+            ASP.NET Core provides powerful tools for consuming external APIs,
+            making it easy to send HTTP requests, process JSON responses,
+            handle authentication, and build reliable integrations.
+        </p>
+
+        <p>
+            In this tutorial, you'll learn how to consume external APIs in
+            ASP.NET Core using HttpClient, HttpClientFactory, and modern
+            development practices.
+        </p>
+
+    </header>
+    <br />
+    <div class="note">
+
+        <strong>Topics Covered</strong>
+
+        <ul>
+            <li>What Are External APIs?</li>
+            <li>Understanding HTTP Requests</li>
+            <li>Using HttpClient</li>
+            <li>HttpClientFactory</li>
+            <li>Reading JSON Responses</li>
+            <li>Authentication Headers</li>
+            <li>Handling Errors</li>
+            <li>Dependency Injection</li>
+            <li>Best Practices</li>
+            <li>Common Mistakes</li>
+        </ul>
+
+    </div>
+
+    <h2>What Are External APIs?</h2>
+
+    <p>
+        An API (Application Programming Interface) allows different applications
+        to communicate with each other.
+    </p>
+
+    <p>
+        External APIs are services provided by third parties that expose data
+        or functionality through HTTP endpoints.
+    </p>
+
+    <p>
+        Common examples include:
+    </p>
+
+    <ul>
+        <li>Weather APIs</li>
+        <li>Payment gateways</li>
+        <li>Social media APIs</li>
+        <li>Maps and location services</li>
+        <li>Email providers</li>
+        <li>Cloud storage services</li>
+    </ul>
+
+    <h2>How API Requests Work</h2>
+
+    <p>
+        Most external APIs use HTTP requests and JSON responses.
+    </p>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>GET</td>
+                <td>Retrieve data</td>
+            </tr>
+
+            <tr>
+                <td>POST</td>
+                <td>Create data</td>
+            </tr>
+
+            <tr>
+                <td>PUT</td>
+                <td>Update data</td>
+            </tr>
+
+            <tr>
+                <td>DELETE</td>
+                <td>Remove data</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <h2>Using HttpClient</h2>
+
+    <p>
+        HttpClient is the primary class used to send HTTP requests in .NET.
+    </p>
+
+    <pre><code>
+        using System.Net.Http;
+
+        HttpClient client = new HttpClient();
+    </code></pre>
+
+    <p>
+        It supports GET, POST, PUT, DELETE, and other HTTP operations.
+    </p>
+
+    <h2>Making a GET Request</h2>
+
+    <p>
+        The following example retrieves data from an external API.
+    </p>
+
+    <pre><code>
+        var response = await client.GetAsync(
+        "https://api.example.com/products");
+
+        response.EnsureSuccessStatusCode();
+
+        string json =
+        await response.Content.ReadAsStringAsync();
+    </code></pre>
+
+    <p>
+        EnsureSuccessStatusCode throws an exception when the request fails.
+    </p>
+
+    <h2>Creating a Model</h2>
+
+    <p>
+        Create a class that matches the JSON response.
+    </p>
+
+    <pre><code>
+        public class Product
+        {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = "";
+
+        public decimal Price { get; set; }
+        }
+    </code></pre>
+
+    <h2>Deserialize JSON Data</h2>
+
+    <p>
+        Use System.Text.Json to convert JSON into C# objects.
+    </p>
+
+    <pre><code>
+        using System.Text.Json;
+
+        var products =
+        JsonSerializer.Deserialize
+        &lt;List&lt;Product&gt;&gt;(json);
+    </code></pre>
+
+    <h2>Using HttpClientFactory</h2>
+
+    <p>
+        Microsoft recommends HttpClientFactory for managing HttpClient instances.
+    </p>
+
+    <pre><code>
+        builder.Services.AddHttpClient();
+    </code></pre>
+
+    <p>
+        This helps prevent socket exhaustion and improves performance.
+    </p>
+
+    <h2>Inject IHttpClientFactory</h2>
+
+    <pre><code>
+        public class ProductService
+        {
+        private readonly
+        IHttpClientFactory _factory;
+
+        public ProductService(
+        IHttpClientFactory factory)
+        {
+        _factory = factory;
+        }
+        }
+    </code></pre>
+
+    <h2>Create a Client Instance</h2>
+
+    <pre><code>
+        var client =
+        _factory.CreateClient();
+    </code></pre>
+
+    <h2>Sending POST Requests</h2>
+
+    <p>
+        APIs often require sending data.
+    </p>
+
+    <pre><code>
+        var product = new Product
+        {
+        Name = "Keyboard",
+        Price = 49.99M
+        };
+
+        var response =
+        await client.PostAsJsonAsync(
+        "https://api.example.com/products",
+        product);
+    </code></pre>
+
+    <p>
+        PostAsJsonAsync automatically serializes the object.
+    </p>
+
+    <h2>Adding Request Headers</h2>
+
+    <p>
+        Many APIs require authentication headers.
+    </p>
+
+    <pre><code>
+        client.DefaultRequestHeaders
+        .Add(
+        "Authorization",
+        "Bearer YOUR_TOKEN");
+    </code></pre>
+
+    <p>
+        Authorization tokens are commonly used for secure API access.
+    </p>
+
+    <h2>Working with API Keys</h2>
+
+    <pre><code>
+        client.DefaultRequestHeaders
+        .Add(
+        "X-Api-Key",
+        "YOUR_API_KEY");
+    </code></pre>
+
+    <p>
+        Store API keys securely in configuration files or secret managers.
+    </p>
+
+    <h2>Error Handling</h2>
+
+    <p>
+        Network failures and API errors can occur unexpectedly.
+    </p>
+
+    <pre><code>
+        try
+        {
+        var response =
+        await client.GetAsync(url);
+
+        response.EnsureSuccessStatusCode();
+        }
+        catch(HttpRequestException ex)
+        {
+        Console.WriteLine(ex.Message);
+        }
+    </code></pre>
+
+    <p>
+        Proper error handling improves reliability and user experience.
+    </p>
+
+    <h2>Using Typed Clients</h2>
+
+    <p>
+        Typed clients provide a clean way to organize API communication.
+    </p>
+
+    <pre><code>
+        builder.Services.AddHttpClient
+        &lt;WeatherService&gt;();
+    </code></pre>
+
+    <p>
+        This approach improves maintainability and testability.
+    </p>
+
+    <h2>Dependency Injection Benefits</h2>
+
+    <ul>
+        <li>Centralized configuration</li>
+        <li>Improved testing</li>
+        <li>Better maintainability</li>
+        <li>Reusable services</li>
+        <li>Cleaner architecture</li>
+    </ul>
+
+    <h2>Common Beginner Mistakes</h2>
+
+    <ul>
+        <li>Creating a new HttpClient for every request.</li>
+        <li>Ignoring response status codes.</li>
+        <li>Hardcoding API keys.</li>
+        <li>Not handling exceptions.</li>
+        <li>Ignoring request timeouts.</li>
+        <li>Not validating API responses.</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+
+    <ul>
+        <li>Use HttpClientFactory.</li>
+        <li>Store secrets securely.</li>
+        <li>Handle API failures gracefully.</li>
+        <li>Use strongly typed models.</li>
+        <li>Validate response data.</li>
+        <li>Implement logging.</li>
+        <li>Configure timeouts appropriately.</li>
+    </ul>
+    <br />
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is HttpClientFactory?</h3>
+
+    <p>
+        HttpClientFactory is a built-in ASP.NET Core feature that manages
+        HttpClient instances efficiently and improves performance.
+    </p>
+
+    <h3>Should I reuse HttpClient?</h3>
+
+    <p>
+        Yes. Reusing HttpClient prevents resource exhaustion and is considered
+        a best practice.
+    </p>
+
+    <h3>Can ASP.NET Core consume REST APIs?</h3>
+
+    <p>
+        Absolutely. ASP.NET Core is commonly used to integrate with REST APIs,
+        cloud services, and third-party platforms.
+    </p>
+
+    <h3>How do I secure API keys?</h3>
+
+    <p>
+        Store API keys in configuration files, user secrets, environment variables,
+        or secure secret management systems.
+    </p>
+
+    <h2>Related Tutorials</h2>
+
+    <ul>
+        <li><a href="using-httpclient-in-csharp.html">Using HttpClient in C#</a></li>
+        <li><a href="build-rest-api-in-aspnet-core.html">Build a REST API in ASP.NET Core</a></li>
+        <li><a href="reading-json-in-csharp.html">Reading JSON in C#</a></li>
+        <li><a href="dependency-injection-in-aspnet-core.html">Dependency Injection in ASP.NET Core</a></li>
+        <li><a href="jwt-authentication-in-aspnet-core.html">JWT Authentication in ASP.NET Core</a></li>
+        <li><a href="file-handling-in-aspnet-core.html">File Handling in ASP.NET Core</a></li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>
+        Consuming external APIs is a fundamental skill for modern ASP.NET Core
+        developers. Whether you're integrating payment systems, weather services,
+        cloud platforms, or business applications, reliable API communication
+        is essential.
+    </p>
+
+    <p>
+        By understanding HttpClient, HttpClientFactory, JSON processing,
+        authentication, error handling, and dependency injection,
+        you can build secure, scalable, and maintainable integrations
+        with external services.
+    </p>
+
+</article>
+
+          
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
