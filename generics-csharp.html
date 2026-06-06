@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Generics in C# - Complete Beginner to Advanced Guide</title>
+
+    <meta name="description"
+          content="Learn Generics in C# with practical examples. Understand generic classes, generic methods, type parameters, constraints, collections, and best practices.">
+
+    <meta name="keywords"
+          content="Generics in C#, C# Generics Tutorial, Generic Classes C#, Generic Methods C#, Generic Collections C#, C# Type Parameters, C# Generics Examples, List<T> in C#, Dictionary<TKey TValue> C#, Generic Programming C#, Generic Constraints C#, C# Generics Best Practices, Learn C# Generics, C# Programming Tutorial, .NET Generics">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+          <article class="tutorial-article">
+
+	<header class="article-header">
+
+		<h1>Generics in C#: Complete Beginner to Advanced Guide</h1>
+
+		<p class="article-meta">
+			Published: June 2026 |
+			Category: C# Fundamentals |
+			Reading Time: 15 Minutes
+		</p>
+
+		<p>
+			Generics are one of the most powerful features available in C#.
+			They allow developers to write reusable, type-safe, and efficient
+			code without sacrificing performance.
+		</p>
+
+		<p>
+			Before generics were introduced, developers often relied on
+			object-based collections, which required casting and increased
+			the risk of runtime errors. Generics solve these problems by
+			allowing types to be specified at compile time.
+		</p>
+
+		<p>
+			In this guide, you'll learn how generics work, when to use them,
+			how to create generic classes and methods, and how generic
+			collections improve application development.
+		</p>
+
+	</header>
+	<br />
+	<div class="note">
+
+		<strong>Topics Covered</strong>
+
+		<ul>
+			<li>What Are Generics?</li>
+			<li>Why Use Generics?</li>
+			<li>Generic Classes</li>
+			<li>Generic Methods</li>
+			<li>Generic Collections</li>
+			<li>Generic Constraints</li>
+			<li>Multiple Type Parameters</li>
+			<li>Performance Benefits</li>
+			<li>Common Mistakes</li>
+			<li>Best Practices</li>
+		</ul>
+
+	</div>
+
+	<h2>What Are Generics?</h2>
+
+	<p>
+		Generics allow classes, methods, interfaces, and delegates to
+		operate with type parameters instead of specific data types.
+	</p>
+
+	<p>
+		Instead of creating separate implementations for integers,
+		strings, or custom objects, one generic implementation can
+		work with all of them.
+	</p>
+	```
+
+	<pre><code>
+		public class Box&lt;T&gt;
+		{
+		public T Value { get; set; }
+		}
+	</code></pre>
+
+	```
+	<p>
+		The type parameter <code>T</code> acts as a placeholder that
+		will be replaced with a concrete type when the class is used.
+	</p>
+
+	<h2>Why Use Generics?</h2>
+
+	<ul>
+		<li>Improved type safety.</li>
+		<li>Reduced code duplication.</li>
+		<li>Better performance.</li>
+		<li>Compile-time validation.</li>
+		<li>Cleaner and more maintainable code.</li>
+	</ul>
+
+	<h2>Creating a Generic Class</h2>
+	```
+
+	<pre><code>
+		public class Box&lt;T&gt;
+		{
+		public T Value { get; set; }
+		}
+	</code></pre>
+
+	<pre><code>
+		Box&lt;string&gt; messageBox =
+		new Box&lt;string&gt;();
+
+		messageBox.Value =
+		"Hello World";
+	</code></pre>
+
+	<pre><code>
+		Box&lt;int&gt; numberBox =
+		new Box&lt;int&gt;();
+
+		numberBox.Value = 100;
+	</code></pre>
+
+	```
+	<p>
+		The same class works with different types without requiring
+		multiple implementations.
+	</p>
+
+	<h2>Generic Methods</h2>
+
+	<p>
+		Methods can also use type parameters.
+	</p>
+	```
+
+	<pre><code>
+		public static void Display&lt;T&gt;(T value)
+		{
+		Console.WriteLine(value);
+		}
+	</code></pre>
+
+	<pre><code>
+		Display("Hello");
+		Display(100);
+		Display(true);
+	</code></pre>
+
+	```
+	<p>
+		The compiler automatically determines the correct type.
+	</p>
+
+	<h2>Understanding List&lt;T&gt;</h2>
+
+	<p>
+		One of the most common generic collections is List&lt;T&gt;.
+	</p>
+	```
+
+	<pre><code>
+		List&lt;string&gt; names =
+		new List&lt;string&gt;();
+
+		names.Add("John");
+		names.Add("Jane");
+	</code></pre>
+
+	```
+	<p>
+		The list only accepts strings because the generic type is
+		specified as string.
+	</p>
+
+	<h2>Understanding Dictionary&lt;TKey, TValue&gt;</h2>
+
+	<p>
+		Dictionaries use two generic type parameters.
+	</p>
+	```
+
+	<pre><code>
+		Dictionary&lt;int, string&gt;
+		students =
+		new Dictionary&lt;int, string&gt;();
+
+		students.Add(1, "John");
+		students.Add(2, "Sarah");
+	</code></pre>
+
+	```
+	<p>
+		The key must be an integer and the value must be a string.
+	</p>
+
+	<h2>Multiple Type Parameters</h2>
+	```
+
+	<pre><code>
+		public class Pair&lt;TKey, TValue&gt;
+		{
+		public TKey Key { get; set; }
+
+		public TValue Value { get; set; }
+		}
+	</code></pre>
+
+	<pre><code>
+		Pair&lt;int, string&gt; item =
+		new Pair&lt;int, string&gt;();
+
+		item.Key = 1;
+		item.Value = "Laptop";
+	</code></pre>
+
+	```
+	<h2>Generic Constraints</h2>
+
+	<p>
+		Constraints limit the types that can be used with generics.
+	</p>
+	```
+
+	<pre><code>
+		public class Repository&lt;T&gt;
+		where T : class
+		{
+		}
+	</code></pre>
+
+	```
+	<p>
+		The constraint above ensures that only reference types
+		can be used.
+	</p>
+
+	<p>
+		Other common constraints include:
+	</p>
+
+	<ul>
+		<li>where T : class</li>
+		<li>where T : struct</li>
+		<li>where T : new()</li>
+		<li>where T : BaseClass</li>
+		<li>where T : InterfaceName</li>
+	</ul>
+
+	<h2>Performance Benefits</h2>
+
+	<p>
+		Generics avoid boxing and unboxing operations when working
+		with value types.
+	</p>
+	```
+
+	<pre><code>
+		List&lt;int&gt; numbers =
+		new List&lt;int&gt;();
+	</code></pre>
+
+	```
+	<p>
+		Because the collection stores integers directly, additional
+		conversions are unnecessary.
+	</p>
+
+	<h2>Generics and Repository Pattern</h2>
+
+	<p>
+		Generics are commonly used in repository implementations.
+	</p>
+	```
+
+	<pre><code>
+		public interface IRepository&lt;T&gt;
+		{
+		Task&lt;T&gt; GetByIdAsync(int id);
+
+		Task AddAsync(T entity);
+		}
+	</code></pre>
+
+	```
+	<p>
+		This allows the same repository structure to work with
+		multiple entity types.
+	</p>
+
+	<h2>Common Beginner Mistakes</h2>
+
+	<ul>
+		<li>Using object instead of generics.</li>
+		<li>Ignoring generic constraints.</li>
+		<li>Creating unnecessary generic types.</li>
+		<li>Using overly complex type parameters.</li>
+		<li>Not leveraging generic collections.</li>
+	</ul>
+
+	<h2>Best Practices</h2>
+
+	<ul>
+		<li>Use meaningful type parameter names.</li>
+		<li>Apply constraints when appropriate.</li>
+		<li>Prefer generic collections.</li>
+		<li>Keep generic designs simple.</li>
+		<li>Use generics for reusable components.</li>
+	</ul>
+	<br />
+	<h2>Frequently Asked Questions</h2>
+
+	<h3>What does T mean in generics?</h3>
+
+	<p>
+		T stands for Type and represents a placeholder for a data type.
+	</p>
+
+	<h3>Are generics faster than object?</h3>
+
+	<p>
+		Yes. Generics improve performance by avoiding unnecessary
+		casting and boxing operations.
+	</p>
+
+	<h3>Should I use generics in ASP.NET Core?</h3>
+
+	<p>
+		Absolutely. Generics are commonly used in repositories,
+		services, collections, and reusable application components.
+	</p>
+
+	<h2>Related Tutorials</h2>
+
+	<ul>		
+    <li><a href="working-with-lists-in-csharp.html">Working with Lists in C#</a></li>
+		<li><a href="csharp-dictionary-examples.html">C# Dictionary Examples</a></li>
+		<li><a href="linq-cheat-sheet.html">LINQ Cheat Sheet</a></li>
+		<li><a href="repository-pattern-in-aspnet-core.html">Repository Pattern in ASP.NET Core</a></li>
+		<li><a href="best-csharp-coding-practices.html">Best C# Coding Practices</a></li>
+	</ul>
+
+	<h2>Conclusion</h2>
+
+	<p>
+		Generics are a fundamental feature of modern C# development.
+		They help developers create reusable, type-safe, and high-performance
+		code while reducing duplication.
+	</p>
+
+	<p>
+		By mastering generic classes, methods, collections, and constraints,
+		you'll be able to write cleaner and more maintainable applications
+		across ASP.NET Core, desktop applications, APIs, and libraries.
+	</p>
+ 
+</article>
+
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
