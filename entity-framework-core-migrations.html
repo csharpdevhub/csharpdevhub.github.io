@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Entity Framework Core Migrations Tutorial - Complete Beginner Guide</title>
+
+    <meta name="description"
+          content="Learn Entity Framework Core Migrations in ASP.NET Core. Create migrations, update databases, generate SQL scripts, manage schema changes, and follow EF Core best practices.">
+
+    <meta name="keywords"
+          content="Entity Framework Core Migrations, EF Core Migrations Tutorial, ASP.NET Core Migrations, Entity Framework Core Database Migrations, EF Core Migration Commands, Update Database EF Core, Add Migration EF Core, Entity Framework Core Schema Changes, EF Core Database Updates, ASP.NET Core Entity Framework Core">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+            <article class="tutorial-article">
+
+    <header class="article-header">
+
+        <h1>
+            Entity Framework Core Migrations:
+            Complete Beginner Guide for ASP.NET Core
+        </h1>
+
+        <p class="article-meta">
+            Published: June 2026 |
+            Category: Entity Framework Core |
+            Reading Time: 15 Minutes
+        </p>
+
+        <p>
+            Database structures evolve over time. New tables are added,
+            columns are modified, relationships change, and indexes need
+            optimization. Managing these changes manually can become
+            difficult and error-prone.
+        </p>
+
+        <p>
+            Entity Framework Core Migrations provide a reliable way to
+            track and apply database schema changes directly from your C#
+            code. Instead of manually writing SQL scripts for every update,
+            migrations automate the process.
+        </p>
+
+        <p>
+            In this tutorial, you'll learn how migrations work, how to
+            create them, apply them, and manage database changes in
+            professional ASP.NET Core applications.
+        </p>
+
+    </header>
+    <br />
+    <div class="note">
+
+        <strong>Topics Covered</strong>
+
+        <ul>
+            <li>What Are EF Core Migrations?</li>
+            <li>Installing Migration Tools</li>
+            <li>Creating Models</li>
+            <li>Creating Migrations</li>
+            <li>Updating Databases</li>
+            <li>Removing Migrations</li>
+            <li>Generating SQL Scripts</li>
+            <li>Common Problems</li>
+            <li>Best Practices</li>
+        </ul>
+
+    </div>
+
+    <h2>What Are Entity Framework Core Migrations?</h2>
+
+    <p>
+        Migrations are a feature of Entity Framework Core that allow
+        developers to keep a database schema synchronized with
+        application models.
+    </p>
+
+    <p>
+        When your model classes change, EF Core can generate migration
+        files that describe the necessary database changes.
+    </p>
+
+    <p>
+        Examples include:
+    </p>
+
+    <ul>
+        <li>Creating new tables.</li>
+        <li>Adding columns.</li>
+        <li>Renaming columns.</li>
+        <li>Deleting tables.</li>
+        <li>Creating indexes.</li>
+        <li>Adding relationships.</li>
+    </ul>
+
+    <h2>Why Use Migrations?</h2>
+
+    <p>
+        Without migrations, database changes often require manually
+        writing SQL scripts and keeping track of modifications.
+    </p>
+
+    <p>
+        Migrations provide:
+    </p>
+
+    <ul>
+        <li>Version control for database schemas.</li>
+        <li>Repeatable deployment processes.</li>
+        <li>Automatic schema updates.</li>
+        <li>Team collaboration support.</li>
+        <li>Reduced human error.</li>
+    </ul>
+
+    <h2>Create a Sample Project</h2>
+
+    <pre><code>
+        dotnet new mvc -n MigrationDemo
+
+        cd MigrationDemo
+    </code></pre>
+
+    <h2>Install Required Packages</h2>
+
+    <pre><code>
+        dotnet add package Microsoft.EntityFrameworkCore
+
+        dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+        dotnet add package Microsoft.EntityFrameworkCore.Tools
+    </code></pre>
+
+    <p>
+        These packages provide Entity Framework Core functionality,
+        SQL Server support, and migration commands.
+    </p>
+
+    <h2>Create a Model</h2>
+
+    <p>
+        Create a Product model that represents a database table.
+    </p>
+
+    <pre><code>
+        public class Product
+        {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = "";
+
+        public decimal Price { get; set; }
+        }
+    </code></pre>
+
+    <h2>Create the DbContext</h2>
+
+    <pre><code>
+        using Microsoft.EntityFrameworkCore;
+
+        public class ApplicationDbContext
+        : DbContext
+        {
+        public ApplicationDbContext(
+        DbContextOptions&lt;ApplicationDbContext&gt;
+        options)
+        : base(options)
+        {
+        }
+
+        public DbSet&lt;Product&gt; Products
+        {
+        get; set;
+        }
+        }
+    </code></pre>
+
+    <h2>Configure the Connection String</h2>
+
+    <pre><code>
+        {
+        "ConnectionStrings": {
+        "DefaultConnection":
+        "Server=(localdb)\\MSSQLLocalDB;
+        Database=MigrationDemo;
+        Trusted_Connection=True;"
+        }
+        }
+    </code></pre>
+
+    <h2>Register DbContext</h2>
+
+    <pre><code>
+        builder.Services.AddDbContext
+        &lt;ApplicationDbContext&gt;(options =>
+        {
+        options.UseSqlServer(
+        builder.Configuration
+        .GetConnectionString(
+        "DefaultConnection"));
+        });
+    </code></pre>
+
+    <h2>Create Your First Migration</h2>
+
+    <p>
+        Open a terminal and run:
+    </p>
+
+    <pre><code>
+        dotnet ef migrations add InitialCreate
+    </code></pre>
+
+    <p>
+        EF Core will analyze your model classes and generate migration files.
+    </p>
+
+    <h3>Generated Migration Example</h3>
+
+    <pre><code>
+        public partial class InitialCreate
+        : Migration
+        {
+        protected override void Up(
+        MigrationBuilder migrationBuilder)
+        {
+        migrationBuilder.CreateTable(
+        name: "Products",
+        columns: table => new
+        {
+        Id = table.Column&lt;int&gt;(),
+        Name = table.Column&lt;string&gt;(),
+        Price = table.Column&lt;decimal&gt;()
+        });
+        }
+
+        protected override void Down(
+        MigrationBuilder migrationBuilder)
+        {
+        migrationBuilder.DropTable(
+        "Products");
+        }
+        }
+    </code></pre>
+
+    <h2>Apply the Migration</h2>
+
+    <p>
+        Run the following command:
+    </p>
+
+    <pre><code>
+        dotnet ef database update
+    </code></pre>
+
+    <p>
+        EF Core creates the database and applies the migration.
+    </p>
+
+    <h2>Verify the Database</h2>
+
+    <p>
+        After running the update command, you should see:
+    </p>
+
+    <ul>
+        <li>Products table.</li>
+        <li>__EFMigrationsHistory table.</li>
+    </ul>
+
+    <p>
+        The history table tracks which migrations have been applied.
+    </p>
+
+    <h2>Adding a New Column</h2>
+
+    <p>
+        Suppose we want to add a Stock property.
+    </p>
+
+    <pre><code>
+        public class Product
+        {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = "";
+
+        public decimal Price { get; set; }
+
+        public int Stock { get; set; }
+        }
+    </code></pre>
+
+    <p>
+        Generate a new migration:
+    </p>
+
+    <pre><code>
+        dotnet ef migrations add AddStockColumn
+    </code></pre>
+
+    <p>
+        Apply the update:
+    </p>
+
+    <pre><code>
+        dotnet ef database update
+    </code></pre>
+
+    <p>
+        EF Core automatically adds the new column.
+    </p>
+
+    <h2>View Existing Migrations</h2>
+
+    <pre><code>
+        dotnet ef migrations list
+    </code></pre>
+
+    <p>
+        Example output:
+    </p>
+
+    <pre><code>
+        InitialCreate
+        AddStockColumn
+    </code></pre>
+
+    <h2>Remove the Last Migration</h2>
+
+    <p>
+        If a migration hasn't been applied yet:
+    </p>
+
+    <pre><code>
+        dotnet ef migrations remove
+    </code></pre>
+
+    <p>
+        This removes the most recently created migration.
+    </p>
+
+    <h2>Rollback a Database</h2>
+
+    <p>
+        Revert to a previous migration:
+    </p>
+
+    <pre><code>
+        dotnet ef database update InitialCreate
+    </code></pre>
+
+    <p>
+        EF Core executes the Down methods to reverse changes.
+    </p>
+
+    <h2>Generate SQL Scripts</h2>
+
+    <p>
+        Many production environments require SQL scripts instead of direct updates.
+    </p>
+
+    <pre><code>
+        dotnet ef migrations script
+    </code></pre>
+
+    <p>
+        Generate a specific migration range:
+    </p>
+
+    <pre><code>
+        dotnet ef migrations script
+        InitialCreate
+        AddStockColumn
+    </code></pre>
+
+    <p>
+        This produces SQL that can be reviewed before deployment.
+    </p>
+
+    <h2>Understanding Up and Down Methods</h2>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Up()</td>
+                <td>Apply schema changes.</td>
+            </tr>
+
+            <tr>
+                <td>Down()</td>
+                <td>Reverse schema changes.</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <h2>Common Migration Problems</h2>
+
+    <h3>Missing Tools</h3>
+
+    <pre><code>
+        dotnet tool install --global dotnet-ef
+    </code></pre>
+
+    <h3>Connection String Errors</h3>
+
+    <p>
+        Verify your database server name and credentials.
+    </p>
+
+    <h3>Model Not Updating</h3>
+
+    <p>
+        Ensure you've created a new migration after modifying models.
+    </p>
+
+    <h2>Migration Workflow Example</h2>
+
+    <ol>
+        <li>Create or modify model classes.</li>
+        <li>Create a migration.</li>
+        <li>Review generated code.</li>
+        <li>Apply migration to development database.</li>
+        <li>Test changes.</li>
+        <li>Deploy migration to production.</li>
+    </ol>
+
+    <h2>Best Practices</h2>
+
+    <ul>
+        <li>Create small, focused migrations.</li>
+        <li>Review migration code before applying.</li>
+        <li>Use source control for migrations.</li>
+        <li>Back up production databases.</li>
+        <li>Generate SQL scripts for production deployments.</li>
+        <li>Avoid manually editing migration history tables.</li>
+    </ul>
+    <br />
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>Do migrations create databases?</h3>
+
+    <p>
+        Yes. The database update command can create a database if it does not already exist.
+    </p>
+
+    <h3>Can migrations update existing databases?</h3>
+
+    <p>
+        Yes. Migrations can add, remove, or modify schema objects.
+    </p>
+
+    <h3>Should migration files be committed to Git?</h3>
+
+    <p>
+        Yes. Migration files should be included in source control so team members can apply the same database changes.
+    </p>
+
+    <h3>Can I roll back migrations?</h3>
+
+    <p>
+        Yes. EF Core allows reverting to previous migration states.
+    </p>
+
+    <h2>Related Tutorials</h2>
+
+    <ul>
+        <li><a href="entity-framework-core-crud.html">Entity Framework Core CRUD</a></li>
+        <li><a href="repository-pattern-in-aspnet-core.html">Repository Pattern in ASP.NET Core</a></li>
+        <li><a href="dependency-injection-in-aspnet-core.html">Dependency Injection in ASP.NET Core</a></li>
+        <li><a href="linq-cheat-sheet.html">LINQ Cheat Sheet</a></li>
+        <li><a href="aspnet-core-mvc-tutorial.html">ASP.NET Core MVC Tutorial</a></li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>
+        Entity Framework Core Migrations provide a safe and structured way to manage database schema changes throughout the development lifecycle.
+    </p>
+
+    <p>
+        By understanding how to create, apply, rollback, and deploy migrations, you'll be better equipped to build maintainable ASP.NET Core applications that evolve over time without losing database consistency.
+    </p>
+
+</article>
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
