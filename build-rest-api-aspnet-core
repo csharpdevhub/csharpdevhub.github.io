@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Build a REST API in ASP.NET Core</title>
+
+    <meta name="description"
+          content="Learn how to build a REST API in ASP.NET Core from scratch. Create endpoints, handle CRUD operations, validate data, return HTTP status codes, and follow API best practices.">
+
+    <meta name="keywords"
+          content="ASP.NET Core REST API Tutorial, Build a REST API in ASP.NET Core, ASP.NET Core Web API Beginner Guide, ASP.NET Core CRUD API, ASP.NET Core API Endpoints, ASP.NET Core Controllers, ASP.NET Core HTTP Methods, ASP.NET Core HTTP Status Codes, ASP.NET Core API Validation, ASP.NET Core Dependency Injection, Swagger ASP.NET Core, ASP.NET Core API Best Practices">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+           
+<article class="tutorial-article">
+
+    <header class="article-header">
+
+        <h1>Build a REST API in ASP.NET Core: Complete Beginner's Guide</h1>
+
+        <p class="article-meta">
+            Published: June 2026 |
+            Category: ASP.NET Core |
+            Reading Time: 15 Minutes
+        </p>
+
+        <p>
+            REST APIs power modern web applications, mobile apps, cloud services,
+            and microservice architectures. Whether you're building a frontend,
+            integrating third-party services, or creating a backend for mobile devices,
+            understanding how to build a REST API is an essential skill for .NET developers.
+        </p>
+
+        <p>
+            In this tutorial, you'll learn how to create a REST API using
+            ASP.NET Core, implement CRUD operations, validate requests,
+            return proper HTTP status codes, and follow best practices for
+            production-ready APIs.
+        </p>
+
+    </header>
+    <br />
+    <div class="note">
+
+        <strong>Topics Covered</strong>
+
+        <ul>
+            <li>What is a REST API?</li>
+            <li>Creating an ASP.NET Core Web API project</li>
+            <li>Controllers and endpoints</li>
+            <li>GET, POST, PUT, DELETE operations</li>
+            <li>Data validation</li>
+            <li>HTTP status codes</li>
+            <li>Dependency Injection</li>
+            <li>Best practices</li>
+        </ul>
+
+    </div>
+
+    <h2>What Is a REST API?</h2>
+
+    <p>
+        REST (Representational State Transfer) is an architectural style used
+        to build web services that communicate over HTTP.
+    </p>
+
+    <p>
+        Clients interact with resources using standard HTTP methods:
+    </p>
+
+    <ul>
+        <li><strong>GET</strong> – Retrieve data</li>
+        <li><strong>POST</strong> – Create data</li>
+        <li><strong>PUT</strong> – Update data</li>
+        <li><strong>DELETE</strong> – Remove data</li>
+    </ul>
+
+    <p>
+        Most modern APIs exchange data in JSON format.
+    </p>
+
+    <h2>Create a New ASP.NET Core Web API Project</h2>
+
+    <p>
+        Use the .NET CLI to create a new API project.
+    </p>
+
+    <pre><code>
+        dotnet new webapi -n ProductApi
+
+        cd ProductApi
+    </code></pre>
+
+    <p>
+        Run the application:
+    </p>
+
+    <pre><code>
+        dotnet run
+    </code></pre>
+
+    <p>
+        By default, ASP.NET Core generates a sample WeatherForecast API.
+    </p>
+
+    <h2>Understanding Controllers</h2>
+
+    <p>
+        Controllers handle incoming HTTP requests and return responses.
+    </p>
+
+    <p>
+        Create a new controller named ProductsController.
+    </p>
+
+    <pre><code>
+        using Microsoft.AspNetCore.Mvc;
+
+        namespace ProductApi.Controllers;
+
+        [ApiController]
+        [Route("api/[controller]")]
+        public class ProductsController : ControllerBase
+        {
+        }
+    </code></pre>
+
+    <p>
+        The route above maps requests to:
+    </p>
+
+    <pre><code>
+        /api/products
+    </code></pre>
+
+    <h2>Create a Product Model</h2>
+
+    <p>
+        Create a simple model representing a product.
+    </p>
+
+    <pre><code>
+        public class Product
+        {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = "";
+
+        public decimal Price { get; set; }
+        }
+    </code></pre>
+
+    <h2>GET Endpoint</h2>
+
+    <p>
+        A GET endpoint returns data to clients.
+    </p>
+
+    <pre><code>
+        [HttpGet]
+        public IActionResult GetProducts()
+        {
+        var products = new List&lt;Product&gt;
+        {
+        new Product
+        {
+        Id = 1,
+        Name = "Laptop",
+        Price = 999.99m
+        }
+        };
+
+        return Ok(products);
+        }
+    </code></pre>
+
+    <p>
+        Example request:
+    </p>
+
+    <pre><code>
+        GET /api/products
+    </code></pre>
+
+    <h2>GET by ID</h2>
+
+    <pre><code>
+        [HttpGet("{id}")]
+        public IActionResult GetProduct(int id)
+        {
+        var product = new Product
+        {
+        Id = id,
+        Name = "Laptop",
+        Price = 999.99m
+        };
+
+        return Ok(product);
+        }
+    </code></pre>
+
+    <p>
+        Example request:
+    </p>
+
+    <pre><code>
+        GET /api/products/1
+    </code></pre>
+
+    <h2>POST Endpoint</h2>
+
+    <p>
+        POST creates new resources.
+    </p>
+
+    <pre><code>
+        [HttpPost]
+        public IActionResult CreateProduct(
+        Product product)
+        {
+        product.Id = 100;
+
+        return CreatedAtAction(
+        nameof(GetProduct),
+        new { id = product.Id },
+        product);
+        }
+    </code></pre>
+
+    <p>
+        Example JSON request:
+    </p>
+
+    <pre><code>
+        {
+        "name": "Keyboard",
+        "price": 49.99
+        }
+    </code></pre>
+
+    <h2>PUT Endpoint</h2>
+
+    <p>
+        PUT updates existing resources.
+    </p>
+
+    <pre><code>
+        [HttpPut("{id}")]
+        public IActionResult UpdateProduct(
+        int id,
+        Product product)
+        {
+        return NoContent();
+        }
+    </code></pre>
+
+    <p>
+        Successful updates commonly return:
+    </p>
+
+    <pre><code>
+        204 No Content
+    </code></pre>
+
+    <h2>DELETE Endpoint</h2>
+
+    <pre><code>
+        [HttpDelete("{id}")]
+        public IActionResult DeleteProduct(int id)
+        {
+        return NoContent();
+        }
+    </code></pre>
+
+    <p>
+        Example request:
+    </p>
+
+    <pre><code>
+        DELETE /api/products/1
+    </code></pre>
+
+    <h2>Understanding HTTP Status Codes</h2>
+
+    <p>
+        Returning appropriate status codes helps API consumers understand results.
+    </p>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Status Code</th>
+                <th>Meaning</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>200 OK</td>
+                <td>Request succeeded</td>
+            </tr>
+
+            <tr>
+                <td>201 Created</td>
+                <td>Resource created</td>
+            </tr>
+
+            <tr>
+                <td>204 No Content</td>
+                <td>Successful request with no content</td>
+            </tr>
+
+            <tr>
+                <td>400 Bad Request</td>
+                <td>Invalid request data</td>
+            </tr>
+
+            <tr>
+                <td>404 Not Found</td>
+                <td>Resource does not exist</td>
+            </tr>
+
+            <tr>
+                <td>500 Internal Server Error</td>
+                <td>Unexpected server failure</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <h2>Adding Validation</h2>
+
+    <p>
+        Data validation prevents invalid information from entering your system.
+    </p>
+
+    <pre><code>
+        using System.ComponentModel.DataAnnotations;
+
+        public class Product
+        {
+        public int Id { get; set; }
+
+        [Required]
+        public string Name { get; set; } = "";
+
+        [Range(0.01, 100000)]
+        public decimal Price { get; set; }
+        }
+    </code></pre>
+
+    <p>
+        ASP.NET Core automatically validates models when using the
+        ApiController attribute.
+    </p>
+
+    <h2>Dependency Injection</h2>
+
+    <p>
+        ASP.NET Core includes built-in Dependency Injection.
+    </p>
+
+    <p>
+        Instead of placing business logic inside controllers,
+        services can be injected.
+    </p>
+
+    <pre><code>
+        public interface IProductService
+        {
+        IEnumerable&lt;Product&gt; GetAll();
+        }
+    </code></pre>
+
+    <pre><code>
+        builder.Services.AddScoped&lt;IProductService,
+        ProductService&gt;();
+    </code></pre>
+
+    <h2>Testing APIs with Swagger</h2>
+
+    <p>
+        ASP.NET Core includes Swagger support for documenting and testing APIs.
+    </p>
+
+    <pre><code>
+        builder.Services.AddEndpointsApiExplorer();
+
+        builder.Services.AddSwaggerGen();
+    </code></pre>
+
+    <p>
+        Swagger provides an interactive interface for testing endpoints
+        directly from the browser.
+    </p>
+
+    <h2>Common Mistakes</h2>
+
+    <ul>
+        <li>Returning incorrect status codes.</li>
+        <li>Putting business logic in controllers.</li>
+        <li>Skipping input validation.</li>
+        <li>Ignoring exception handling.</li>
+        <li>Not documenting endpoints.</li>
+        <li>Using inconsistent route naming.</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+
+    <ul>
+        <li>Use meaningful resource names.</li>
+        <li>Validate all incoming data.</li>
+        <li>Return proper HTTP status codes.</li>
+        <li>Keep controllers thin.</li>
+        <li>Use Dependency Injection.</li>
+        <li>Document APIs using Swagger.</li>
+        <li>Handle errors consistently.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is the difference between REST and SOAP?</h3>
+
+    <p>
+        REST is lightweight and commonly uses JSON, while SOAP is a protocol
+        that often relies on XML and stricter standards.
+    </p>
+
+    <h3>Can ASP.NET Core build REST APIs?</h3>
+
+    <p>
+        Yes. ASP.NET Core is one of the most popular frameworks for building
+        RESTful web services.
+    </p>
+
+    <h3>Should I use controllers or minimal APIs?</h3>
+
+    <p>
+        Controllers are often preferred for larger applications,
+        while minimal APIs are useful for smaller projects.
+    </p>
+
+    <h3>What format do REST APIs usually return?</h3>
+
+    <p>
+        Most modern REST APIs return JSON responses.
+    </p>
+
+    <h2>Related Tutorials</h2>
+
+    <ul>
+        <li><a href="using-httpclient-in-csharp.html">Using HttpClient in C#</a></li>
+        <li><a href="dependency-injection-in-aspnet-core.html">Dependency Injection in ASP.NET Core</a></li>
+        <li><a href="jwt-authentication-in-aspnet-core.html">JWT Authentication in ASP.NET Core</a></li>
+        <li><a href="aspnet-core-mvc-tutorial.html">ASP.NET Core MVC Tutorial</a></li>      
+        <li><a href="entity-framework-core-crud.html">Entity Framework Core CRUD</a></li>
+        <li><a href="repository-pattern-in-aspnet-core.html">Repository Pattern in ASP.NET Core</a></li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>
+        Building REST APIs is one of the most valuable skills for modern .NET developers.
+        ASP.NET Core provides a powerful framework for creating scalable,
+        secure, and maintainable APIs.
+    </p>
+
+    <p>
+        By understanding controllers, CRUD operations, validation,
+        HTTP status codes, dependency injection, and Swagger,
+        you can build APIs that are easy to maintain and integrate with
+        modern applications.
+    </p>
+
+</article>
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
