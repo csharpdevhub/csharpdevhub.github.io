@@ -29,7 +29,7 @@ body {
 /* Shared Layout */
 .container,
 nav {
-    max-width: 1200px;
+    max-width: 600px;
     margin: auto;
 }
 
