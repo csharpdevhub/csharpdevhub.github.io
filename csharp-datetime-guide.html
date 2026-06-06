@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>C# DateTime Guide - Complete Beginner to Advanced Tutorial</title>
+
+    <meta name="description"
+          content="Learn how to work with DateTime in C#. Understand creating dates, formatting, parsing, calculating differences, UTC handling, and best practices with practical examples.">
+
+    <meta name="keywords"
+          content="C# DateTime Guide, DateTime in C#, C# Date and Time Tutorial, C# DateTime Examples, DateTime Formatting C#, Parse DateTime C#, DateTime Now C#, DateTime UTC C#, C# Date Difference, DateTime AddDays C#, DateTime Best Practices, C# DateTime Methods, Working with Dates in C#, C# Programming Tutorial, Learn C# DateTime">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+            <article class="tutorial-article">
+
+	<header class="article-header">
+
+		<h1>C# DateTime Guide: Complete Beginner to Advanced Tutorial</h1>
+
+		<p class="article-meta">
+			Published: June 2026 |
+			Category: C# Fundamentals |
+			Reading Time: 14 Minutes
+		</p>
+
+		<p>
+			Working with dates and times is a common requirement in software
+			development. Applications often need to record user activity,
+			schedule events, calculate durations, generate reports, and
+			handle time zones.
+		</p>
+
+		<p>
+			The <code>DateTime</code> structure in C# provides powerful tools
+			for creating, manipulating, formatting, and comparing dates and
+			times. Understanding how DateTime works is an essential skill
+			for every .NET developer.
+		</p>
+
+	</header>
+
+	<br />
+	<div class="note">
+
+		<strong>Topics Covered</strong>
+
+		<ul>
+			<li>What is DateTime?</li>
+			<li>Creating DateTime Objects</li>
+			<li>DateTime.Now and UtcNow</li>
+			<li>Date Formatting</li>
+			<li>Parsing Dates</li>
+			<li>Date Calculations</li>
+			<li>Comparing Dates</li>
+			<li>Working with Time Zones</li>
+			<li>Common Mistakes</li>
+			<li>Best Practices</li>
+		</ul>
+
+	</div>
+
+	<h2>What Is DateTime?</h2>
+
+	<p>
+		DateTime is a built-in structure in .NET that represents a specific
+		date and time value. It allows developers to work with calendars,
+		timestamps, scheduling systems, and many other date-related tasks.
+	</p>
+
+	<p>
+		A DateTime value stores both the date and the time in a single object.
+	</p>
+	```
+
+	<pre><code>
+		DateTime currentDate =
+		DateTime.Now;
+	</code></pre>
+
+	```
+	<h2>Creating DateTime Objects</h2>
+
+	<p>
+		You can create a DateTime object by specifying the year, month,
+		and day.
+	</p>
+	```
+
+	<pre><code>
+		DateTime birthday =
+		new DateTime(
+		2026,
+		6,
+		15);
+	</code></pre>
+
+	```
+	<p>
+		You can also include hours, minutes, and seconds.
+	</p>
+	```
+
+	<pre><code>
+		DateTime meeting =
+		new DateTime(
+		2026,
+		6,
+		15,
+		10,
+		30,
+		0);
+	</code></pre>
+
+	```
+	<h2>DateTime.Now</h2>
+
+	<p>
+		DateTime.Now returns the current local date and time based on
+		the server or computer clock.
+	</p>
+	```
+
+	<pre><code>
+		DateTime current =
+		DateTime.Now;
+
+		Console.WriteLine(current);
+	</code></pre>
+
+	```
+	<h2>DateTime.UtcNow</h2>
+
+	<p>
+		UTC (Coordinated Universal Time) provides a universal time standard
+		that avoids time zone issues.
+	</p>
+	```
+
+	<pre><code>
+		DateTime utc =
+		DateTime.UtcNow;
+	</code></pre>
+
+	```
+	<p>
+		Many web applications store timestamps in UTC and convert them
+		to local time only when displaying information to users.
+	</p>
+
+	<h2>Formatting Dates</h2>
+
+	<p>
+		Formatting controls how dates appear when displayed.
+	</p>
+	```
+
+	<pre><code>
+		DateTime today =
+		DateTime.Now;
+
+		string formatted =
+		today.ToString(
+		"yyyy-MM-dd");
+	</code></pre>
+
+	```
+	<p>
+		Common formats include:
+	</p>
+
+	<ul>
+		<li>yyyy-MM-dd</li>
+		<li>MM/dd/yyyy</li>
+		<li>dd/MM/yyyy</li>
+		<li>MMMM dd, yyyy</li>
+		<li>HH:mm:ss</li>
+	</ul>
+
+	<h2>Parsing Date Strings</h2>
+
+	<p>
+		Parsing converts text into DateTime objects.
+	</p>
+	```
+
+	<pre><code>
+		DateTime date =
+		DateTime.Parse(
+		"2026-06-15");
+	</code></pre>
+
+	```
+	<p>
+		For safer conversions, use TryParse.
+	</p>
+	```
+
+	<pre><code>
+		if(DateTime.TryParse(
+		input,
+		out DateTime result))
+		{
+		Console.WriteLine(result);
+		}
+	</code></pre>
+
+	```
+	<h2>Adding and Subtracting Dates</h2>
+	```
+
+	<pre><code>
+		DateTime future =
+		DateTime.Now
+		.AddDays(7);
+	</code></pre>
+
+	<pre><code>
+		DateTime nextMonth =
+		DateTime.Now
+		.AddMonths(1);
+	</code></pre>
+
+	<pre><code>
+		DateTime nextYear =
+		DateTime.Now
+		.AddYears(1);
+	</code></pre>
+
+	```
+	<h2>Calculating Date Differences</h2>
+
+	<p>
+		Use TimeSpan to calculate the difference between two dates.
+	</p>
+	```
+
+	<pre><code>
+		DateTime start =
+		new DateTime(
+		2026, 1, 1);
+
+		DateTime end =
+		new DateTime(
+		2026, 12, 31);
+
+		TimeSpan difference =
+		end - start;
+
+		Console.WriteLine(
+		difference.Days);
+	</code></pre>
+
+	```
+	<h2>Comparing Dates</h2>
+	```
+
+	<pre><code>
+		if(DateTime.Now > deadline)
+		{
+		Console.WriteLine(
+		"Expired");
+		}
+	</code></pre>
+
+	<pre><code>
+		if(startDate == endDate)
+		{
+		Console.WriteLine(
+		"Same date");
+		}
+	</code></pre>
+
+	```
+	<h2>Useful DateTime Properties</h2>
+
+	<ul>
+		<li>Year</li>
+		<li>Month</li>
+		<li>Day</li>
+		<li>Hour</li>
+		<li>Minute</li>
+		<li>Second</li>
+		<li>DayOfWeek</li>
+		<li>DayOfYear</li>
+	</ul>
+	```
+
+	<pre><code>
+		DateTime today =
+		DateTime.Now;
+
+		Console.WriteLine(
+		today.DayOfWeek);
+	</code></pre>
+
+	```
+	<h2>Working with Time Zones</h2>
+
+	<p>
+		Applications serving users across multiple regions should carefully
+		manage time zones.
+	</p>
+	```
+
+	<pre><code>
+		DateTime localTime =
+		TimeZoneInfo.ConvertTimeFromUtc(
+		DateTime.UtcNow,
+		TimeZoneInfo.Local);
+	</code></pre>
+
+	```
+	<h2>Common Beginner Mistakes</h2>
+
+	<ul>
+		<li>Mixing local time and UTC.</li>
+		<li>Using Parse without validation.</li>
+		<li>Ignoring time zones.</li>
+		<li>Hardcoding date formats.</li>
+		<li>Not considering daylight saving changes.</li>
+	</ul>
+
+	<h2>Best Practices</h2>
+
+	<ul>
+		<li>Store timestamps in UTC.</li>
+		<li>Use TryParse for user input.</li>
+		<li>Use explicit date formats.</li>
+		<li>Validate all date values.</li>
+		<li>Consider user time zones.</li>
+		<li>Use TimeSpan for duration calculations.</li>
+	</ul>
+	<br />
+	<h2>Frequently Asked Questions</h2>
+
+	<h3>What is the difference between Now and UtcNow?</h3>
+
+	<p>
+		DateTime.Now returns local system time, while DateTime.UtcNow
+		returns Coordinated Universal Time.
+	</p>
+
+	<h3>Should I store dates in UTC?</h3>
+
+	<p>
+		Yes. Storing UTC values avoids many time zone-related issues in
+		distributed applications.
+	</p>
+
+	<h3>What is TimeSpan?</h3>
+
+	<p>
+		TimeSpan represents a duration or difference between two dates.
+	</p>
+
+	<h2>Related Tutorials</h2>
+
+	<ul>
+		<li><a href="string-manipulation-guide.html">C# String Manipulation Guide</a></li>
+		<li><a href="working-with-lists-in-csharp.html">Working with Lists in C#</a></li>
+		<li><a href="csharp-dictionary-examples.html">C# Dictionary Examples</a></li>
+		<li><a href="reading-json-in-csharp.html">Reading JSON in C#</a></li>
+		<li><a href="exception-handling-in-csharp.html">Exception Handling in C#</a></li>
+	</ul>
+
+	<h2>Conclusion</h2>
+
+	<p>
+		DateTime is one of the most important structures in C# development.
+		Understanding how to create, format, parse, compare, and calculate
+		dates will help you build more reliable applications.
+	</p>
+
+	<p>
+		By following best practices such as storing UTC timestamps,
+		validating user input, and handling time zones correctly,
+		you can avoid many common date-related bugs and improve
+		application reliability.
+	</p>
+ 
+
+</article>
+
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
