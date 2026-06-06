@@ -1,0 +1,253 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    line-height: 1.8;
+}
+
+/* Shared Layout */
+.container,
+nav {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.container {
+    padding: 60px 20px;
+}
+
+/* Bootstrap Focus Styles */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem #fff, 0 0 0 0.25rem #258cfb;
+}
+
+/* Floating Labels */
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* Code Blocks */
+pre {
+    background: #f4f4f4;
+    padding: 15px;
+    overflow: auto;
+}
+
+code {
+    font-family: Consolas, monospace;
+}
+
+/* Header */
+header {
+    background: #512BD4;
+    color: #fff;
+    padding: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav a,
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #512BD4, #6b46ff);
+    color: #fff;
+}
+
+    .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+        max-width: 700px;
+        margin: auto;
+        font-size: 1.1rem;
+    }
+
+/* Search */
+.search-box {
+    margin-top: 30px;
+}
+
+    .search-box input {
+        width: 90%;
+        max-width: 600px;
+        padding: 15px;
+        border: none;
+        border-radius: 6px;
+    }
+
+/* Sections */
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Grids */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+/* Cards */
+.card,
+.category {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+}
+
+.card {
+    padding: 25px;
+}
+
+    .card h3 {
+        margin-bottom: 10px;
+        color: #512BD4;
+    }
+
+    .card a {
+        color: #512BD4;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+/* Categories */
+.category {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Newsletter */
+.newsletter {
+    background: #512BD4;
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+    .newsletter input,
+    .newsletter button {
+        padding: 15px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .newsletter input {
+        width: 300px;
+        max-width: 90%;
+    }
+
+    .newsletter button {
+        padding: 15px 25px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+/* About */
+.about {
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px;
+}
+
+/* Footer */
+footer {
+    background: #1f2937;
+    color: #fff;
+    padding: 40px 20px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Bootstrap Navbar */
+.navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #512BD4 !important;
+}
+
+.nav-link {
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+    .nav-link:hover {
+        color: #512BD4 !important;
+    }
