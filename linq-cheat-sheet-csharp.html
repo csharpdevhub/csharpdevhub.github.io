@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LINQ Cheat Sheet for C# Developers - Common LINQ Methods with Examples</title>
+
+    <meta name="description"
+          content="Master LINQ in C# with this practical cheat sheet. Learn Where, Select, OrderBy, GroupBy, Join, Any, All, FirstOrDefault, and other commonly used LINQ methods with examples.">
+
+    <meta name="keywords"
+          content="LINQ Cheat Sheet C#, C# LINQ Tutorial, LINQ Methods C#, Learn LINQ in C#, LINQ Where Example, LINQ Select Example, LINQ OrderBy C#, LINQ GroupBy Example, LINQ Join Example, LINQ Any and All, LINQ FirstOrDefault C#, LINQ Query Examples, LINQ Collection Operations, C# Programming Tutorial, LINQ Best Practices">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+           <article class="tutorial-article">
+
+    <header class="article-header">
+
+        <h1>LINQ Cheat Sheet for C# Developers</h1>
+
+        <p class="article-meta">
+            Published: June 2026 |
+            Category: C# & LINQ |
+            Reading Time: 12 Minutes
+        </p>
+
+        <p>
+            Language Integrated Query (LINQ) is one of the most powerful features
+            available in C#. It allows developers to query collections, databases,
+            XML documents, and other data sources using a consistent syntax.
+        </p>
+
+        <p>
+            Whether you're working with arrays, lists, Entity Framework Core,
+            or APIs, LINQ can help you write cleaner and more readable code.
+        </p>
+
+        <p>
+            This LINQ Cheat Sheet provides practical examples of the most commonly
+            used LINQ methods that every C# developer should know.
+        </p>
+
+    </header>
+    <br />
+    <div class="note">
+
+        <strong>Topics Covered</strong>
+
+        <ul>
+            <li>Where</li>
+            <li>Select</li>
+            <li>OrderBy</li>
+            <li>OrderByDescending</li>
+            <li>First & FirstOrDefault</li>
+            <li>Any & All</li>
+            <li>Count</li>
+            <li>Distinct</li>
+            <li>GroupBy</li>
+            <li>Join</li>
+            <li>Take & Skip</li>
+            <li>Best Practices</li>
+        </ul>
+
+    </div>
+
+    <h2>What Is LINQ?</h2>
+
+    <p>
+        LINQ stands for Language Integrated Query. It provides query capabilities
+        directly within C# and allows developers to manipulate collections using
+        a concise and readable syntax.
+    </p>
+
+    <p>
+        LINQ works with:
+    </p>
+
+    <ul>
+        <li>Arrays</li>
+        <li>Lists</li>
+        <li>Dictionaries</li>
+        <li>Entity Framework Core</li>
+        <li>XML Documents</li>
+        <li>DataTables</li>
+        <li>Many other data sources</li>
+    </ul>
+
+    <h2>Sample Data</h2>
+
+<pre><code>
+List&lt;string&gt; names = new()
+{
+    "John",
+    "Alice",
+    "Bob",
+    "Sarah",
+    "James"
+};
+</code></pre>
+
+    <p>
+        We'll use similar examples throughout this tutorial.
+    </p>
+
+    <h2>1. Where() - Filter Data</h2>
+
+    <p>
+        The Where method filters elements based on a condition.
+    </p>
+
+<pre><code>
+var result = names
+    .Where(name => name.StartsWith("J"));
+</code></pre>
+
+    <h3>Output</h3>
+
+<pre><code>
+John
+James
+</code></pre>
+
+    <p>
+        Use Where whenever you need to filter collections.
+    </p>
+
+    <h2>2. Select() - Transform Data</h2>
+
+    <p>
+        Select projects each element into a new form.
+    </p>
+
+<pre><code>
+var lengths = names
+    .Select(name => name.Length);
+</code></pre>
+
+<pre><code>
+4
+5
+3
+5
+5
+</code></pre>
+
+    <p>
+        Select is commonly used for creating DTOs and view models.
+    </p>
+
+    <h2>3. OrderBy() - Sort Ascending</h2>
+
+<pre><code>
+var sorted = names
+    .OrderBy(name => name);
+</code></pre>
+
+    <h3>Output</h3>
+
+<pre><code>
+Alice
+Bob
+James
+John
+Sarah
+</code></pre>
+
+    <h2>4. OrderByDescending() - Sort Descending</h2>
+
+<pre><code>
+var sorted = names
+    .OrderByDescending(name => name);
+</code></pre>
+
+    <h3>Output</h3>
+
+<pre><code>
+Sarah
+John
+James
+Bob
+Alice
+</code></pre>
+
+    <h2>5. First()</h2>
+
+    <p>
+        Returns the first matching element.
+    </p>
+
+<pre><code>
+var first = names.First();
+</code></pre>
+
+    <p>
+        Result:
+    </p>
+
+<pre><code>
+John
+</code></pre>
+
+    <div class="note">
+        <strong>Important:</strong>
+        First() throws an exception if no records exist.
+    </div>
+
+    <h2>6. FirstOrDefault()</h2>
+
+<pre><code>
+var person =
+    names.FirstOrDefault(
+        x => x == "Mike");
+</code></pre>
+
+    <p>
+        Returns null if no matching item is found.
+    </p>
+
+    <p>
+        Safer than using First() in many situations.
+    </p>
+
+    <h2>7. Any()</h2>
+
+    <p>
+        Determines whether at least one element matches a condition.
+    </p>
+
+<pre><code>
+bool exists =
+    names.Any(name => name == "Alice");
+</code></pre>
+
+    <p>
+        Result:
+    </p>
+
+<pre><code>
+True
+</code></pre>
+
+    <h2>8. All()</h2>
+
+    <p>
+        Checks whether all elements satisfy a condition.
+    </p>
+
+<pre><code>
+bool valid =
+    names.All(name => name.Length > 2);
+</code></pre>
+
+<pre><code>
+True
+</code></pre>
+
+    <h2>9. Count()</h2>
+
+    <p>
+        Counts elements in a collection.
+    </p>
+
+<pre><code>
+int total = names.Count();
+</code></pre>
+
+<pre><code>
+5
+</code></pre>
+
+    <p>
+        Count can also filter.
+    </p>
+
+<pre><code>
+int count =
+    names.Count(
+        name => name.StartsWith("J"));
+</code></pre>
+
+<pre><code>
+2
+</code></pre>
+
+    <h2>10. Distinct()</h2>
+
+    <p>
+        Removes duplicate values.
+    </p>
+
+<pre><code>
+var numbers = new[]
+{
+    1, 1, 2, 2, 3, 4, 4
+};
+
+var unique =
+    numbers.Distinct();
+</code></pre>
+
+<pre><code>
+1
+2
+3
+4
+</code></pre>
+
+    <h2>11. Take()</h2>
+
+    <p>
+        Returns a specified number of elements.
+    </p>
+
+<pre><code>
+var firstTwo =
+    names.Take(2);
+</code></pre>
+
+<pre><code>
+John
+Alice
+</code></pre>
+
+    <h2>12. Skip()</h2>
+
+    <p>
+        Skips a specified number of elements.
+    </p>
+
+<pre><code>
+var remaining =
+    names.Skip(2);
+</code></pre>
+
+<pre><code>
+Bob
+Sarah
+James
+</code></pre>
+
+    <p>
+        Skip and Take are commonly used for pagination.
+    </p>
+
+    <h2>13. GroupBy()</h2>
+
+    <p>
+        Groups data by a key.
+    </p>
+
+<pre><code>
+var groups =
+    names.GroupBy(
+        name => name.Length);
+</code></pre>
+
+    <p>
+        Useful for reporting and data analysis.
+    </p>
+
+    <h2>14. Join()</h2>
+
+    <p>
+        Combines data from multiple collections.
+    </p>
+
+<pre><code>
+var result =
+    customers.Join(
+        orders,
+        c => c.Id,
+        o => o.CustomerId,
+        (c, o) => new
+        {
+            c.Name,
+            o.OrderNumber
+        });
+</code></pre>
+
+    <p>
+        Join is frequently used with Entity Framework Core.
+    </p>
+
+    <h2>15. Sum()</h2>
+
+<pre><code>
+var numbers = new[]
+{
+    10, 20, 30
+};
+
+int total =
+    numbers.Sum();
+</code></pre>
+
+<pre><code>
+60
+</code></pre>
+
+    <h2>16. Average()</h2>
+
+<pre><code>
+double average =
+    numbers.Average();
+</code></pre>
+
+<pre><code>
+20
+</code></pre>
+
+    <h2>17. Min() and Max()</h2>
+
+<pre><code>
+int smallest =
+    numbers.Min();
+
+int largest =
+    numbers.Max();
+</code></pre>
+
+<pre><code>
+10
+30
+</code></pre>
+
+    <h2>Method Summary Table</h2>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Where</td>
+                <td>Filter data</td>
+            </tr>
+
+            <tr>
+                <td>Select</td>
+                <td>Transform data</td>
+            </tr>
+
+            <tr>
+                <td>OrderBy</td>
+                <td>Sort ascending</td>
+            </tr>
+
+            <tr>
+                <td>OrderByDescending</td>
+                <td>Sort descending</td>
+            </tr>
+
+            <tr>
+                <td>First</td>
+                <td>Get first item</td>
+            </tr>
+
+            <tr>
+                <td>Any</td>
+                <td>Check existence</td>
+            </tr>
+
+            <tr>
+                <td>Count</td>
+                <td>Count records</td>
+            </tr>
+
+            <tr>
+                <td>Distinct</td>
+                <td>Remove duplicates</td>
+            </tr>
+
+            <tr>
+                <td>GroupBy</td>
+                <td>Group records</td>
+            </tr>
+
+            <tr>
+                <td>Join</td>
+                <td>Combine collections</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <h2>LINQ Query Syntax Example</h2>
+
+<pre><code>
+var result =
+    from name in names
+    where name.StartsWith("J")
+    orderby name
+    select name;
+</code></pre>
+
+    <p>
+        Although method syntax is more common today, query syntax is still useful
+        for complex queries.
+    </p>
+
+    <h2>Best Practices</h2>
+
+    <ul>
+        <li>Prefer FirstOrDefault() when records may not exist.</li>
+        <li>Use Any() instead of Count() > 0.</li>
+        <li>Keep LINQ queries readable.</li>
+        <li>Use Select() to return only required data.</li>
+        <li>Avoid multiple unnecessary enumerations.</li>
+        <li>Use async LINQ methods with Entity Framework Core.</li>
+    </ul>
+    <br />
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is LINQ used for?</h3>
+
+    <p>
+        LINQ is used to query, filter, sort, group, and transform data in C#.
+    </p>
+
+    <h3>Is LINQ slow?</h3>
+
+    <p>
+        LINQ is highly optimized and suitable for most applications. However,
+        performance should be tested when working with large datasets.
+    </p>
+
+    <h3>Can LINQ work with databases?</h3>
+
+    <p>
+        Yes. Entity Framework Core translates LINQ queries into SQL statements.
+    </p>
+
+    <h3>Should beginners learn LINQ?</h3>
+
+    <p>
+        Absolutely. LINQ is one of the most important skills for modern C#
+        and .NET development.
+    </p>
+
+    <h2>Related Tutorials</h2>
+
+    <ul>
+        <li><a href="entity-framework-core-crud.html">Entity Framework Core CRUD</a></li>
+        <li><a href="repository-pattern-in-aspnet-core.html">Repository Pattern in ASP.NET Core</a></li>
+        <li><a href="async-and-await-in-csharp.html">Async and Await in C#</a></li>       
+        <li><a href="working-with-lists-in-csharp.html">Working with Lists in C#</a></li>
+        <li> <a href="csharp-dictionary-examples.html">C# Dictionary Examples</a></li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>
+        LINQ is one of the most valuable productivity features available in C#.
+        It helps developers write cleaner, more maintainable code while reducing
+        the amount of manual looping and filtering logic required.
+    </p>
+
+    <p>
+        By mastering methods such as Where, Select, OrderBy, GroupBy, Join,
+        Any, and FirstOrDefault, you'll be able to work more efficiently with
+        collections, databases, APIs, and many other data sources throughout
+        your .NET development career.
+    </p>
+
+</article>
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
