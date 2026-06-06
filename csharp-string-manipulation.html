@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>C# String Manipulation Guide - String Methods, Formatting and Examples</title>
+
+    <meta name="description"
+          content="Learn C# string manipulation with practical examples. Master string concatenation, interpolation, substring, replace, split, trim, StringBuilder, formatting, and performance best practices.">
+
+    <meta name="keywords"
+          content="C# String Manipulation, String Manipulation in C#, C# String Tutorial, C# String Methods, C# String Functions, String Concatenation C#, String Interpolation C#, C# Substring Example, C# Replace String, C# Split String, C# Trim Method, StringBuilder C#, Working with Strings in C#, C# Text Processing, C# Programming Tutorial">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+          <article class="tutorial-article">
+
+    <header class="article-header">
+        <h1>C# String Manipulation Guide</h1>
+
+        <p class="article-meta">
+            Published: June 2026 | Reading Time: 10 Minutes
+        </p>
+
+        <p>
+            Strings are one of the most commonly used data types in C# development.
+            Whether you're building web applications, desktop software, APIs, or
+            automation tools, you'll frequently work with text data.
+        </p>
+
+        <p>
+            This guide covers the most important string manipulation techniques in C#,
+            including concatenation, interpolation, substring extraction, searching,
+            replacing, splitting, formatting, and performance optimization.
+        </p>
+    </header>
+    <br />
+    <nav class="table-of-contents">
+        <h2>Contents</h2>
+
+        <ul>
+            <li><a href="#what-is-string">What Is a String?</a></li>
+            <li><a href="#concatenation">String Concatenation</a></li>
+            <li><a href="#interpolation">String Interpolation</a></li>
+            <li><a href="#substring">Substring()</a></li>
+            <li><a href="#contains">Contains()</a></li>
+            <li><a href="#replace">Replace()</a></li>
+            <li><a href="#split">Split()</a></li>
+            <li><a href="#trim">Trim()</a></li>
+            <li><a href="#stringbuilder">StringBuilder</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <section id="what-is-string">
+        <h2>What Is a String in C#?</h2>
+
+        <p>
+            A string is a sequence of Unicode characters represented by the
+            <code>string</code> type. Strings are immutable, meaning their content
+            cannot be changed after creation.
+        </p>
+
+        <pre><code>string message = "Hello World";</code></pre>
+
+        <p>
+            Whenever a string is modified, .NET creates a new string object in memory.
+            Understanding this behavior is important when writing high-performance
+            applications.
+        </p>
+    </section>
+
+    <section id="concatenation">
+        <h2>String Concatenation</h2>
+
+        <p>
+            Concatenation combines multiple strings into one string.
+        </p>
+
+        <pre><code>string firstName = "John";
+            string lastName = "Smith";
+
+            string fullName = firstName + " " + lastName;
+
+            Console.WriteLine(fullName);</code></pre>
+
+            <p>
+                This approach is easy to understand but may become inefficient when
+                repeatedly combining large amounts of text.
+            </p>
+        </section>
+
+        <section id="interpolation">
+            <h2>String Interpolation</h2>
+
+            <p>
+                String interpolation provides a cleaner and more readable way to
+                construct strings.
+            </p>
+
+            <pre><code>string name = "Sarah";
+                int age = 25;
+
+                string result = $"Name: {name}, Age: {age}";
+
+                Console.WriteLine(result);</code></pre>
+
+                <p>
+                    Interpolation is widely used in modern C# projects because it improves
+                    readability and maintainability.
+                </p>
+            </section>
+
+         
+            <br />
+            <section id="faq">
+                <h2>Frequently Asked Questions</h2>
+
+                <h3>Why are strings immutable in C#?</h3>
+                <p>
+                    Immutability improves reliability, thread safety, and memory optimization
+                    within the .NET runtime.
+                </p>
+
+                <h3>When should I use StringBuilder?</h3>
+                <p>
+                    Use StringBuilder when creating or modifying strings repeatedly,
+                    especially inside loops.
+                </p>
+
+                <h3>What is the most commonly used string method?</h3>
+                <p>
+                    Methods such as Contains(), Replace(), Split(), Trim(), and Substring()
+                    are commonly used in production applications.
+                </p>
+            </section>
+
+            <section>
+                <h2>Related Tutorials</h2>
+
+                <ul>
+                    <li><a href="how-to-reverse-a-string-in-csharp.html">How to Reverse a String in C#</a></li>
+                    <li><a href="stringbuilder-csharp.html">StringBuilder Complete Guide</a></li>
+                    <li><a href="working-with-arrays-csharp.html">Working with Arrays in C#</a></li>
+                </ul>
+            </section>
+
+        </article>
+
+
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
