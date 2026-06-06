@@ -481,12 +481,12 @@
     <h2>Related Tutorials</h2>
 
     <ul>
-        <li><a asp-controller="Tutorials" asp-action="TaskRun">Task.Run() Explained</a></li>
-        <li><a asp-controller="Tutorials" asp-action="ThreadVsTask">Thread vs Task in C#</a></li>
-        <li><a asp-controller="Tutorials" asp-action="Asynchronous">Async and Await in C#</a></li>
-        <li><a asp-controller="Tutorials" asp-action="DependencyInjection">Dependency Injection in ASP.NET Core</a></li>
-        <li><a asp-controller="Tutorials" asp-action="UsingHttpClient">Using HttpClient in C#</a></li>
-        <li><a asp-controller="Tutorials" asp-action="EntityFrameworkCoreCRUD">Entity Framework Core CRUD</a></li>
+        <li><a href="task-run-explained.html">Task.Run() Explained</a></li>
+        <li><a href="thread-vs-task-csharp">Thread vs Task in C#</a></li>
+        <li><a href="async-and-await-in-csharp.html">Async and Await in C#</a></li>
+        <li><a href="dependency-injection-in-aspnet-core.html">Dependency Injection in ASP.NET Core</a></li>
+        <li><a href="using-httpclient-in-csharp.html">Using HttpClient in C#</a></li>
+        <li><a href="entity-framework-core-crud.html">Entity Framework Core CRUD</a></li>
     </ul>
 
     <h2>Conclusion</h2>
