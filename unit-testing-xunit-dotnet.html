@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Unit Testing with xUnit in .NET - Complete Beginner's Guide</title>
+
+    <meta name="description"
+          content="Learn Unit Testing with xUnit in .NET and ASP.NET Core. Create test projects, write test methods, use assertions, mock dependencies, and follow testing best practices.">
+
+    <meta name="keywords"
+          content="Unit Testing with xUnit, xUnit Tutorial, xUnit .NET Testing, ASP.NET Core Unit Testing, C# Unit Testing, xUnit Assertions, Mocking in xUnit, Dependency Injection Testing, Automated Testing .NET, xUnit Beginner Guide, .NET Testing Framework, Unit Test Best Practices">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+ <article class="tutorial-article">
+
+    <header class="article-header">
+
+        <h1>Unit Testing with xUnit in .NET: Complete Beginner's Guide</h1>
+
+        <p class="article-meta">
+            Published: June 2026 |
+            Category: Testing & Quality Assurance |
+            Reading Time: 15 Minutes
+        </p>
+
+        <p>
+            Writing code is only part of software development. Ensuring that
+            code works correctly and continues to work after future changes
+            is equally important.
+        </p>
+
+        <p>
+            Unit testing helps developers verify that individual components
+            behave as expected. In the .NET ecosystem, xUnit is one of the
+            most popular testing frameworks and is widely used in professional
+            applications.
+        </p>
+
+        <p>
+            In this guide, you'll learn how to create unit tests with xUnit,
+            write assertions, test business logic, mock dependencies,
+            and follow testing best practices.
+        </p>
+
+    </header>
+    <br />
+    <div class="note">
+
+        <strong>Topics Covered</strong>
+
+        <ul>
+            <li>What Is Unit Testing?</li>
+            <li>Why Unit Tests Matter</li>
+            <li>Installing xUnit</li>
+            <li>Creating Test Projects</li>
+            <li>Writing Test Methods</li>
+            <li>Using Assertions</li>
+            <li>Testing Services</li>
+            <li>Mocking Dependencies</li>
+            <li>Common Mistakes</li>
+            <li>Best Practices</li>
+        </ul>
+
+    </div>
+
+    <h2>What Is Unit Testing?</h2>
+
+    <p>
+        Unit testing is the process of testing small pieces of code,
+        usually individual methods or classes, in isolation.
+    </p>
+
+    <p>
+        The goal is to verify that each unit behaves correctly under
+        different conditions.
+    </p>
+
+    <h2>Benefits of Unit Testing</h2>
+
+    <ul>
+        <li>Detect bugs early.</li>
+        <li>Improve code quality.</li>
+        <li>Increase confidence when refactoring.</li>
+        <li>Reduce manual testing effort.</li>
+        <li>Improve maintainability.</li>
+    </ul>
+
+    <h2>Create a Test Project</h2>
+
+    <p>
+        Create a new xUnit project using the .NET CLI.
+    </p>
+
+    <pre><code>
+        dotnet new xunit -n MyApp.Tests
+    </code></pre>
+
+    <p>
+        Add the test project to your solution.
+    </p>
+
+    <pre><code>
+        dotnet sln add MyApp.Tests
+    </code></pre>
+
+    <h2>Project Structure</h2>
+
+    <pre><code>
+        MyApp
+        │
+        ├── Services
+        │   └── CalculatorService.cs
+        │
+        MyApp.Tests
+        │
+        └── CalculatorServiceTests.cs
+    </code></pre>
+
+    <h2>Create a Service to Test</h2>
+
+    <pre><code>
+        public class CalculatorService
+        {
+        public int Add(int a, int b)
+        {
+        return a + b;
+        }
+        }
+    </code></pre>
+
+    <h2>Write Your First xUnit Test</h2>
+
+    <pre><code>
+        using Xunit;
+
+        public class CalculatorServiceTests
+        {
+        [Fact]
+        public void Add_ReturnsCorrectResult()
+        {
+        var calculator =
+        new CalculatorService();
+
+        int result =
+        calculator.Add(5, 3);
+
+        Assert.Equal(8, result);
+        }
+        }
+    </code></pre>
+
+    <p>
+        The Fact attribute identifies a test method.
+    </p>
+
+    <h2>Running Tests</h2>
+
+    <pre><code>
+        dotnet test
+    </code></pre>
+
+    <p>
+        The test runner executes all test methods and reports
+        successful and failed tests.
+    </p>
+
+    <h2>Understanding Assertions</h2>
+
+    <p>
+        Assertions verify expected outcomes.
+    </p>
+
+    <pre><code>
+        Assert.Equal(10, result);
+
+        Assert.True(isValid);
+
+        Assert.False(hasErrors);
+
+        Assert.NotNull(user);
+
+        Assert.Contains("Admin", roles);
+    </code></pre>
+
+    <h2>Testing Multiple Inputs</h2>
+
+    <p>
+        Use Theory and InlineData to test several scenarios.
+    </p>
+
+    <pre><code>
+        [Theory]
+        [InlineData(2, 3, 5)]
+        [InlineData(10, 5, 15)]
+        [InlineData(1, 1, 2)]
+        public void Add_ReturnsExpectedResult(
+        int a,
+        int b,
+        int expected)
+        {
+        var calculator =
+        new CalculatorService();
+
+        int result =
+        calculator.Add(a, b);
+
+        Assert.Equal(expected, result);
+        }
+    </code></pre>
+
+    <h2>Testing Exceptions</h2>
+
+    <pre><code>
+        [Fact]
+        public void Divide_ByZero_ThrowsException()
+        {
+        Assert.Throws&lt;DivideByZeroException&gt;(
+        () => 10 / int.Parse("0"));
+        }
+    </code></pre>
+
+    <h2>Testing Business Logic</h2>
+
+    <pre><code>
+        public class DiscountService
+        {
+        public decimal ApplyDiscount(
+        decimal price)
+        {
+        return price * 0.9m;
+        }
+        }
+    </code></pre>
+
+    <pre><code>
+        [Fact]
+        public void ApplyDiscount_Returns10PercentOff()
+        {
+        var service =
+        new DiscountService();
+
+        decimal result =
+        service.ApplyDiscount(100);
+
+        Assert.Equal(90, result);
+        }
+    </code></pre>
+
+    <h2>Mocking Dependencies</h2>
+
+    <p>
+        Real applications often depend on databases,
+        APIs, or external services.
+    </p>
+
+    <p>
+        Mocking allows tests to run without relying
+        on external systems.
+    </p>
+
+    <h2>Install Moq</h2>
+
+    <pre><code>
+        dotnet add package Moq
+    </code></pre>
+
+    <h2>Example Interface</h2>
+
+    <pre><code>
+        public interface IEmailService
+        {
+        void Send(string message);
+        }
+    </code></pre>
+
+    <h2>Mock the Dependency</h2>
+
+    <pre><code>
+        using Moq;
+
+        var emailMock =
+        new Mock&lt;IEmailService&gt;();
+
+        emailMock
+        .Setup(e => e.Send(It.IsAny&lt;string&gt;()));
+    </code></pre>
+
+    <p>
+        Mock objects simulate behavior without sending
+        actual emails or connecting to databases.
+    </p>
+
+    <h2>Unit Testing in ASP.NET Core</h2>
+
+    <p>
+        Unit testing is commonly used for:
+    </p>
+
+    <ul>
+        <li>Services</li>
+        <li>Business Logic</li>
+        <li>Repositories</li>
+        <li>Validation Rules</li>
+        <li>Controllers</li>
+    </ul>
+
+    <h2>Common Beginner Mistakes</h2>
+
+    <ul>
+        <li>Testing multiple behaviors in one test.</li>
+        <li>Writing overly complex tests.</li>
+        <li>Testing database infrastructure directly.</li>
+        <li>Ignoring edge cases.</li>
+        <li>Using unclear test names.</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+
+    <ul>
+        <li>Keep tests small and focused.</li>
+        <li>Test one behavior per test method.</li>
+        <li>Use descriptive test names.</li>
+        <li>Mock external dependencies.</li>
+        <li>Run tests automatically in CI/CD pipelines.</li>
+        <li>Maintain high test coverage for business logic.</li>
+    </ul>
+    <br />
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is xUnit?</h3>
+
+    <p>
+        xUnit is a popular open-source testing framework
+        for .NET applications.
+    </p>
+
+    <h3>Is xUnit better than MSTest?</h3>
+
+    <p>
+        Both are good frameworks. xUnit is widely adopted
+        in modern .NET projects and has strong community support.
+    </p>
+
+    <h3>Should I test controllers?</h3>
+
+    <p>
+        Focus primarily on business logic and services.
+        Controllers can be tested when they contain important logic.
+    </p>
+
+    <h3>What percentage of code should be tested?</h3>
+
+    <p>
+        There is no perfect number, but critical business logic
+        should have strong test coverage.
+    </p>
+
+    <h2>Related Tutorials</h2>
+
+    <ul>
+        <li><a href="dependency-injection-in-aspnet-core.html">Dependency Injection in ASP.NET Core</a></li>
+        <li><a href="repository-pattern-in-aspnet-core.html">Repository Pattern in ASP.NET Core</a></li>
+        <li><a href="entity-framework-core-crud.html">Entity Framework Core CRUD</a></li>
+        <li><a href="build-rest-api-in-aspnet-core.html">Build a REST API in ASP.NET Core</a></li>
+        <li><a href="exception-handling-in-csharp.html">Exception Handling in C#</a></li>
+        <li><a href="best-csharp-coding-practices.html">Best C# Coding Practices</a></li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>
+        Unit testing is an essential skill for every .NET developer.
+        It helps prevent bugs, improve maintainability, and increase
+        confidence when making changes to an application.
+    </p>
+
+    <p>
+        By learning xUnit, assertions, mocking, and testing best practices,
+        you'll be able to create more reliable ASP.NET Core and .NET applications.
+    </p>
+
+</article>
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
