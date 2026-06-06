@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Entity Framework Core CRUD Tutorial - Create, Read, Update, Delete in ASP.NET Core</title>
+
+    <meta name="description"
+          content="Learn Entity Framework Core CRUD operations in ASP.NET Core. Create, Read, Update, and Delete data using DbContext, LINQ, migrations, and async methods with practical examples.">
+
+    <meta name="keywords"
+          content="Entity Framework Core CRUD, EF Core CRUD Tutorial, ASP.NET Core Entity Framework Core, Entity Framework Core Create Read Update Delete, EF Core Database Operations, ASP.NET Core CRUD Tutorial, Entity Framework Core Beginner Guide, EF Core DbContext Tutorial, EF Core SaveChangesAsync, Entity Framework Core Migrations, CRUD Operations in ASP.NET Core, Entity Framework Core Examples">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+            <article class="tutorial-article">
+
+    <header class="article-header">
+
+        <h1>
+            Entity Framework Core CRUD Tutorial:
+            Create, Read, Update, and Delete Data in ASP.NET Core
+        </h1>
+
+        <p class="article-meta">
+            Published: June 2026 |
+            Category: Entity Framework Core |
+            Reading Time: 15 Minutes
+        </p>
+
+        <p>
+            Entity Framework Core (EF Core) is Microsoft's modern Object-Relational
+            Mapper (ORM) for .NET applications. It allows developers to work with
+            databases using C# objects instead of writing large amounts of SQL code.
+        </p>
+
+        <p>
+            One of the most common tasks in application development is performing
+            CRUD operations: Create, Read, Update, and Delete. In this tutorial,
+            you'll learn how to implement CRUD functionality using Entity Framework
+            Core in an ASP.NET Core application.
+        </p>
+
+    </header>
+    <br />
+    <div class="note">
+
+        <strong>Topics Covered</strong>
+
+        <ul>
+            <li>What is Entity Framework Core?</li>
+            <li>Installing EF Core</li>
+            <li>Creating Models</li>
+            <li>Creating DbContext</li>
+            <li>Database Migrations</li>
+            <li>Create Records</li>
+            <li>Read Records</li>
+            <li>Update Records</li>
+            <li>Delete Records</li>
+            <li>Best Practices</li>
+        </ul>
+
+    </div>
+
+    <h2>What Is Entity Framework Core?</h2>
+
+    <p>
+        Entity Framework Core is an open-source ORM that simplifies database
+        development by mapping database tables to C# classes.
+    </p>
+
+    <p>
+        Instead of manually writing SQL queries for every operation, developers
+        can use LINQ and C# code to interact with data.
+    </p>
+
+    <p>
+        EF Core supports:
+    </p>
+
+    <ul>
+        <li>SQL Server</li>
+        <li>MySQL</li>
+        <li>PostgreSQL</li>
+        <li>SQLite</li>
+        <li>Oracle</li>
+        <li>Azure SQL Database</li>
+    </ul>
+
+    <h2>Understanding CRUD Operations</h2>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Operation</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Create</td>
+                <td>Add new records.</td>
+            </tr>
+
+            <tr>
+                <td>Read</td>
+                <td>Retrieve records.</td>
+            </tr>
+
+            <tr>
+                <td>Update</td>
+                <td>Modify existing records.</td>
+            </tr>
+
+            <tr>
+                <td>Delete</td>
+                <td>Remove records.</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <h2>Create a New ASP.NET Core Project</h2>
+
+<pre><code>
+dotnet new mvc -n EfCoreCrudDemo
+
+cd EfCoreCrudDemo
+</code></pre>
+
+    <h2>Install Entity Framework Core Packages</h2>
+
+<pre><code>
+dotnet add package
+Microsoft.EntityFrameworkCore
+
+dotnet add package
+Microsoft.EntityFrameworkCore.SqlServer
+
+dotnet add package
+Microsoft.EntityFrameworkCore.Tools
+</code></pre>
+
+    <p>
+        These packages provide EF Core functionality and SQL Server support.
+    </p>
+
+    <h2>Create the Product Model</h2>
+
+    <p>
+        Models represent data stored in the database.
+    </p>
+
+<pre><code>
+public class Product
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; } = "";
+
+    public decimal Price { get; set; }
+
+    public int Stock { get; set; }
+}
+</code></pre>
+
+    <h2>Create the Database Context</h2>
+
+    <p>
+        DbContext acts as the bridge between your application and the database.
+    </p>
+
+<pre><code>
+using Microsoft.EntityFrameworkCore;
+
+public class ApplicationDbContext
+    : DbContext
+{
+    public ApplicationDbContext(
+        DbContextOptions&lt;ApplicationDbContext&gt;
+        options)
+        : base(options)
+    {
+    }
+
+    public DbSet&lt;Product&gt; Products
+    {
+        get; set;
+    }
+}
+</code></pre>
+
+    <h2>Configure the Database Connection</h2>
+
+    <p>
+        Add a connection string to appsettings.json.
+    </p>
+
+<pre><code>
+{
+  "ConnectionStrings": {
+    "DefaultConnection":
+    "Server=(localdb)\\MSSQLLocalDB;
+     Database=EfCoreCrudDemo;
+     Trusted_Connection=True;"
+  }
+}
+</code></pre>
+
+    <h2>Register DbContext</h2>
+
+    <p>
+        Register the database context inside Program.cs.
+    </p>
+
+<pre><code>
+builder.Services.AddDbContext
+&lt;ApplicationDbContext&gt;(options =>
+{
+    options.UseSqlServer(
+        builder.Configuration
+        .GetConnectionString(
+            "DefaultConnection"));
+});
+</code></pre>
+
+    <h2>Create the Initial Migration</h2>
+
+    <p>
+        Migrations create and update the database schema.
+    </p>
+
+<pre><code>
+dotnet ef migrations add InitialCreate
+</code></pre>
+
+<pre><code>
+dotnet ef database update
+</code></pre>
+
+    <p>
+        EF Core will generate the Products table automatically.
+    </p>
+
+    <h2>Create (Insert Data)</h2>
+
+    <p>
+        The Create operation adds new records to the database.
+    </p>
+
+<pre><code>
+public async Task CreateProduct()
+{
+    Product product = new Product
+    {
+        Name = "Laptop",
+        Price = 999.99M,
+        Stock = 10
+    };
+
+    _context.Products.Add(product);
+
+    await _context.SaveChangesAsync();
+}
+</code></pre>
+
+    <p>
+        SaveChangesAsync commits the changes to the database.
+    </p>
+
+    <h2>Read (Retrieve Data)</h2>
+
+    <p>
+        The Read operation retrieves records.
+    </p>
+
+<pre><code>
+var products =
+    await _context.Products
+        .ToListAsync();
+</code></pre>
+
+    <p>
+        Retrieve a single product:
+    </p>
+
+<pre><code>
+var product =
+    await _context.Products
+        .FirstOrDefaultAsync(
+            p => p.Id == 1);
+</code></pre>
+
+    <h2>Display Data in a View</h2>
+
+<pre><code>
+public async Task&lt;IActionResult&gt; Index()
+{
+    var products =
+        await _context.Products
+            .ToListAsync();
+
+    return View(products);
+}
+</code></pre>
+
+<pre><code>
+@@model tIEnumerable&lt;Product&gt;
+
+&lt;table&gt;
+
+@@foreach(var product in Model)
+{
+    &lt;tr&gt;
+        &lt;td&gt;@@product.Name&lt;/td&gt;
+        &lt;td&gt;@@product.Price&lt;/td&gt;
+    &lt;/tr&gt;
+}
+
+&lt;/table&gt;
+</code></pre>
+
+    <h2>Update Records</h2>
+
+    <p>
+        Updating modifies existing records.
+    </p>
+
+<pre><code>
+var product =
+    await _context.Products
+        .FindAsync(1);
+
+if(product != null)
+{
+    product.Price = 1099.99M;
+
+    await _context.SaveChangesAsync();
+}
+</code></pre>
+
+    <p>
+        EF Core automatically tracks changes to entities.
+    </p>
+
+    <h2>Delete Records</h2>
+
+    <p>
+        Delete removes data from the database.
+    </p>
+
+<pre><code>
+var product =
+    await _context.Products
+        .FindAsync(1);
+
+if(product != null)
+{
+    _context.Products.Remove(product);
+
+    await _context.SaveChangesAsync();
+}
+</code></pre>
+
+    <h2>Creating a CRUD Controller</h2>
+
+    <p>
+        Controllers are commonly used to manage CRUD functionality.
+    </p>
+
+<pre><code>
+public class ProductsController
+    : Controller
+{
+    private readonly
+        ApplicationDbContext _context;
+
+    public ProductsController(
+        ApplicationDbContext context)
+    {
+        _context = context;
+    }
+}
+</code></pre>
+
+    <p>
+        Dependency Injection provides access to the database context.
+    </p>
+
+    <h2>Using LINQ with EF Core</h2>
+
+    <p>
+        LINQ makes querying data simple and readable.
+    </p>
+
+<pre><code>
+var expensiveProducts =
+    await _context.Products
+        .Where(p => p.Price > 500)
+        .ToListAsync();
+</code></pre>
+
+<pre><code>
+var orderedProducts =
+    await _context.Products
+        .OrderBy(p => p.Name)
+        .ToListAsync();
+</code></pre>
+
+    <h2>Async Database Operations</h2>
+
+    <p>
+        Use asynchronous methods whenever possible.
+    </p>
+
+    <ul>
+        <li>ToListAsync()</li>
+        <li>FirstOrDefaultAsync()</li>
+        <li>FindAsync()</li>
+        <li>SaveChangesAsync()</li>
+    </ul>
+
+    <p>
+        Async operations improve scalability and responsiveness.
+    </p>
+
+    <h2>Common Beginner Mistakes</h2>
+
+    <ul>
+        <li>Forgetting SaveChangesAsync().</li>
+        <li>Not creating migrations.</li>
+        <li>Hard-coding connection strings.</li>
+        <li>Ignoring async methods.</li>
+        <li>Loading unnecessary data.</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+
+    <ul>
+        <li>Use Dependency Injection.</li>
+        <li>Use async database operations.</li>
+        <li>Keep DbContext short-lived.</li>
+        <li>Validate user input.</li>
+        <li>Use migrations for schema changes.</li>
+        <li>Use LINQ effectively.</li>
+    </ul>
+    <br />
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>Is Entity Framework Core free?</h3>
+
+    <p>
+        Yes. Entity Framework Core is open-source and free to use.
+    </p>
+
+    <h3>Do I need SQL knowledge?</h3>
+
+    <p>
+        Basic SQL knowledge is helpful, but EF Core allows you to perform
+        most operations using C# and LINQ.
+    </p>
+
+    <h3>Should I use async methods?</h3>
+
+    <p>
+        Yes. Async methods improve application performance and scalability,
+        especially in web applications.
+    </p>
+
+    <h3>Can EF Core work with ASP.NET Core MVC?</h3>
+
+    <p>
+        Absolutely. EF Core is commonly used with ASP.NET Core MVC and Web APIs.
+    </p>
+
+    <h2>Related Tutorials</h2>
+
+    <ul>       
+        <li><a href="aspnet-core-mvc-tutorial.html">ASP.NET Core MVC Tutorial</a></li>
+        <li><a href="entity-framework-core-crud.html">Entity Framework Core CRUD</a></li>
+        <li><a href="linq-cheat-sheet.html">LINQ Cheat Sheet</a></li>
+        <li><a href="repository-pattern-in-aspnet-core.html">Repository Pattern in ASP.NET Core</a></li>
+        <li><a href="entity-framework-core-migrations.html">Entity Framework Core Migrations</a></li>
+        <li><a href="build-rest-api-in-aspnet-core.html">Build a REST API in ASP.NET Core</a></li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>
+        Entity Framework Core simplifies database development by allowing
+        developers to work with C# objects instead of manually writing
+        large amounts of SQL.
+    </p>
+
+    <p>
+        Understanding CRUD operations is a fundamental skill for building
+        ASP.NET Core applications. Once you're comfortable creating,
+        reading, updating, and deleting data, you'll be ready to explore
+        advanced topics such as relationships, repositories, migrations,
+        performance optimization, and database design.
+    </p>
+
+</article>
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
