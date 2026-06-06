@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Repository Pattern in ASP.NET Core - EF Core, Dependency Injection & Best Practices</title>
+
+    <meta name="description"
+          content="Learn the Repository Pattern in ASP.NET Core with practical examples. Understand repository interfaces, Entity Framework Core integration, dependency injection, data access layers, and architectural best practices.">
+
+    <meta name="keywords"
+          content="Repository Pattern in ASP.NET Core, ASP.NET Core Repository Pattern Tutorial, Repository Pattern C#, Repository Pattern Entity Framework Core, EF Core Repository Pattern, ASP.NET Core Architecture, Dependency Injection ASP.NET Core, Generic Repository Pattern C#, Repository Interface ASP.NET Core, Data Access Layer ASP.NET Core, Clean Architecture ASP.NET Core, ASP.NET Core Best Practices, Entity Framework Core Repository, Repository Pattern Example C#, ASP.NET Core Development">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+          
+<article class="tutorial-article">
+
+    <header class="article-header">
+
+        <h1>Repository Pattern in ASP.NET Core: Complete Guide for Beginners</h1>
+
+        <p class="article-meta">
+            Published: June 2026 |
+            Category: ASP.NET Core Architecture |
+            Reading Time: 14 Minutes
+        </p>
+
+        <p>
+            As ASP.NET Core applications grow, managing database access directly
+            inside controllers can quickly become difficult. Business logic,
+            data access logic, and presentation logic can become mixed together,
+            making applications harder to maintain and test.
+        </p>
+
+        <p>
+            The Repository Pattern is a popular architectural pattern that helps
+            separate data access from the rest of the application. It provides a
+            clean abstraction layer between your application and the database.
+        </p>
+
+        <p>
+            In this tutorial, you'll learn how the Repository Pattern works,
+            how to implement it using Entity Framework Core, and when it makes
+            sense to use it in ASP.NET Core applications.
+        </p>
+
+    </header>
+    <br />
+    <div class="note">
+
+        <strong>Topics Covered</strong>
+
+        <ul>
+            <li>What is the Repository Pattern?</li>
+            <li>Benefits of using repositories</li>
+            <li>Creating repository interfaces</li>
+            <li>Implementing repositories</li>
+            <li>Dependency Injection</li>
+            <li>Using repositories in controllers</li>
+            <li>Repository Pattern with EF Core</li>
+            <li>Best practices</li>
+        </ul>
+
+    </div>
+
+    <h2>What Is the Repository Pattern?</h2>
+
+    <p>
+        The Repository Pattern is a software design pattern that creates a layer
+        between the application's business logic and data access logic.
+    </p>
+
+    <p>
+        Instead of allowing controllers and services to communicate directly
+        with Entity Framework Core, repositories act as intermediaries that
+        handle database operations.
+    </p>
+
+    <p>
+        This approach improves maintainability, testability, and separation
+        of concerns.
+    </p>
+
+    <h2>Why Use the Repository Pattern?</h2>
+
+    <p>
+        Without a repository layer, controllers often become responsible for
+        querying and updating the database directly.
+    </p>
+
+    <pre><code>
+        public class ProductsController : Controller
+        {
+        private readonly ApplicationDbContext _context;
+
+        public ProductsController(
+        ApplicationDbContext context)
+        {
+        _context = context;
+        }
+
+        public IActionResult Index()
+        {
+        var products =
+        _context.Products.ToList();
+
+        return View(products);
+        }
+        }
+    </code></pre>
+
+    <p>
+        While this works for small projects, larger applications can become
+        difficult to maintain as more data access code is added.
+    </p>
+
+    <h2>Benefits of the Repository Pattern</h2>
+
+    <ul>
+        <li>Improved separation of concerns.</li>
+        <li>Easier unit testing.</li>
+        <li>Reduced code duplication.</li>
+        <li>Cleaner controllers and services.</li>
+        <li>Centralized data access logic.</li>
+        <li>Easier maintenance and scalability.</li>
+    </ul>
+
+    <h2>Create a Product Model</h2>
+
+    <pre><code>
+        public class Product
+        {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = "";
+
+        public decimal Price { get; set; }
+        }
+    </code></pre>
+
+    <h2>Create the Repository Interface</h2>
+
+    <p>
+        Interfaces define the contract that repository implementations must follow.
+    </p>
+
+    <pre><code>
+        public interface IProductRepository
+        {
+        IEnumerable&lt;Product&gt; GetAll();
+
+        Product? GetById(int id);
+
+        void Add(Product product);
+
+        void Update(Product product);
+
+        void Delete(int id);
+
+        void Save();
+        }
+    </code></pre>
+
+    <p>
+        This interface provides basic CRUD operations for products.
+    </p>
+
+    <h2>Create the Repository Implementation</h2>
+
+    <pre><code>
+        public class ProductRepository
+        : IProductRepository
+        {
+        private readonly
+        ApplicationDbContext _context;
+
+        public ProductRepository(
+        ApplicationDbContext context)
+        {
+        _context = context;
+        }
+
+        public IEnumerable&lt;Product&gt; GetAll()
+        {
+        return _context.Products.ToList();
+        }
+
+        public Product? GetById(int id)
+        {
+        return _context.Products
+        .FirstOrDefault(
+        p => p.Id == id);
+        }
+
+        public void Add(Product product)
+        {
+        _context.Products.Add(product);
+        }
+
+        public void Update(Product product)
+        {
+        _context.Products.Update(product);
+        }
+
+        public void Delete(int id)
+        {
+        var product =
+        GetById(id);
+
+        if (product != null)
+        {
+        _context.Products
+        .Remove(product);
+        }
+        }
+
+        public void Save()
+        {
+        _context.SaveChanges();
+        }
+        }
+    </code></pre>
+
+    <h2>Register the Repository</h2>
+
+    <p>
+        Register the repository inside Program.cs using Dependency Injection.
+    </p>
+
+    <pre><code>
+        builder.Services.AddScoped
+        &lt;IProductRepository,
+        ProductRepository&gt;();
+    </code></pre>
+
+    <p>
+        ASP.NET Core will automatically inject the repository when needed.
+    </p>
+
+    <h2>Using the Repository in a Controller</h2>
+
+    <pre><code>
+        public class ProductsController
+        : Controller
+        {
+        private readonly
+        IProductRepository
+        _repository;
+
+        public ProductsController(
+        IProductRepository repository)
+        {
+        _repository = repository;
+        }
+
+        public IActionResult Index()
+        {
+        var products =
+        _repository.GetAll();
+
+        return View(products);
+        }
+        }
+    </code></pre>
+
+    <p>
+        The controller no longer depends directly on Entity Framework Core.
+    </p>
+
+    <h2>Create Operation Example</h2>
+
+    <pre><code>
+        [HttpPost]
+        public IActionResult Create(
+        Product product)
+        {
+        if (ModelState.IsValid)
+        {
+        _repository.Add(product);
+
+        _repository.Save();
+
+        return RedirectToAction(
+        "Index");
+        }
+
+        return View(product);
+        }
+    </code></pre>
+
+    <h2>Read Operation Example</h2>
+
+    <pre><code>
+        public IActionResult Details(
+        int id)
+        {
+        var product =
+        _repository.GetById(id);
+
+        if (product == null)
+        {
+        return NotFound();
+        }
+
+        return View(product);
+        }
+    </code></pre>
+
+    <h2>Update Operation Example</h2>
+
+    <pre><code>
+        [HttpPost]
+        public IActionResult Edit(
+        Product product)
+        {
+        if (ModelState.IsValid)
+        {
+        _repository.Update(product);
+
+        _repository.Save();
+
+        return RedirectToAction(
+        "Index");
+        }
+
+        return View(product);
+        }
+    </code></pre>
+
+    <h2>Delete Operation Example</h2>
+
+    <pre><code>
+        [HttpPost]
+        public IActionResult Delete(
+        int id)
+        {
+        _repository.Delete(id);
+
+        _repository.Save();
+
+        return RedirectToAction(
+        "Index");
+        }
+    </code></pre>
+
+    <h2>Repository Pattern with Entity Framework Core</h2>
+
+    <p>
+        Entity Framework Core already implements many repository-like features.
+        Some developers argue that EF Core itself acts as a repository and unit
+        of work implementation.
+    </p>
+
+    <p>
+        However, many teams still use custom repositories to:
+    </p>
+
+    <ul>
+        <li>Abstract EF Core dependencies.</li>
+        <li>Improve testability.</li>
+        <li>Centralize query logic.</li>
+        <li>Support future database changes.</li>
+    </ul>
+
+    <h2>Async Repository Methods</h2>
+
+    <p>
+        Modern ASP.NET Core applications should use asynchronous database operations.
+    </p>
+
+    <pre><code>
+        public async Task&lt;IEnumerable&lt;Product&gt;&gt;
+        GetAllAsync()
+        {
+        return await _context.Products
+        .ToListAsync();
+        }
+    </code></pre>
+
+    <pre><code>
+        public async Task SaveAsync()
+        {
+        await _context.SaveChangesAsync();
+        }
+    </code></pre>
+
+    <p>
+        Async methods improve scalability and application responsiveness.
+    </p>
+
+    <h2>Common Repository Structure</h2>
+
+    <pre><code>
+        Repositories/
+
+        ├── Interfaces
+        │   └── IProductRepository.cs
+
+        ├── Implementations
+        │   └── ProductRepository.cs
+
+        Models/
+
+        Controllers/
+
+        Services/
+    </code></pre>
+
+    <p>
+        Organizing files consistently helps maintain larger projects.
+    </p>
+
+    <h2>Advantages of the Repository Pattern</h2>
+
+    <ul>
+        <li>Cleaner code organization.</li>
+        <li>Easier mocking during testing.</li>
+        <li>Reduced controller complexity.</li>
+        <li>Reusable query methods.</li>
+        <li>Improved maintainability.</li>
+    </ul>
+
+    <h2>Potential Disadvantages</h2>
+
+    <ul>
+        <li>Additional complexity for small projects.</li>
+        <li>Extra abstraction layers.</li>
+        <li>Possible duplication of EF Core functionality.</li>
+    </ul>
+
+    <p>
+        For very small applications, a repository layer may not be necessary.
+    </p>
+
+    <h2>Best Practices</h2>
+
+    <ul>
+        <li>Use interfaces for repositories.</li>
+        <li>Register repositories with Dependency Injection.</li>
+        <li>Prefer async methods.</li>
+        <li>Keep repositories focused on data access.</li>
+        <li>Avoid placing business logic inside repositories.</li>
+        <li>Use meaningful method names.</li>
+    </ul>
+    <br />
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>Is the Repository Pattern still relevant?</h3>
+
+    <p>
+        Yes. Many organizations continue to use repositories because they
+        improve maintainability and testing capabilities.
+    </p>
+
+    <h3>Does EF Core already implement a repository pattern?</h3>
+
+    <p>
+        EF Core provides repository-like behavior through DbSet and DbContext.
+        Whether to add a custom repository layer depends on project requirements.
+    </p>
+
+    <h3>Should repositories contain business logic?</h3>
+
+    <p>
+        No. Repositories should focus on data access. Business logic should
+        typically reside in services.
+    </p>
+
+    <h3>Should repositories use async methods?</h3>
+
+    <p>
+        Yes. Async database operations are recommended for modern web applications.
+    </p>
+
+    <h2>Related Tutorials</h2>
+
+    <ul>
+        <li><a href="entity-framework-core-crud.html">Entity Framework Core CRUD</a></li>
+        <li><a href="dependency-injection-in-aspnet-core.html">Dependency Injection in ASP.NET Core</a></li>
+        <li><a href="aspnet-core-mvc-tutorial.html">ASP.NET Core MVC Tutorial</a></li> 
+        <li><a href="entity-framework-core-migrations.html">Entity Framework Core Migrations</a></li>
+        <li><a href="build-rest-api-in-aspnet-core.html">Build a REST API in ASP.NET Core</a></li>
+        <li><a href="linq-cheat-sheet.html">LINQ Cheat Sheet</a></li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>
+        The Repository Pattern is a valuable architectural approach for managing
+        data access in ASP.NET Core applications. By separating database logic
+        from controllers and business services, applications become easier to
+        maintain, test, and extend.
+    </p>
+
+    <p>
+        While not every project requires a repository layer, understanding the
+        pattern is important for developers working on professional .NET
+        applications. Combined with Dependency Injection and Entity Framework
+        Core, repositories can help create clean and scalable architectures.
+    </p>
+
+</article>
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
