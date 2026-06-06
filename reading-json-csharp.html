@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reading JSON in C# - System.Text.Json Tutorial with Examples</title>
+
+    <meta name="description"
+          content="Learn how to read JSON in C# using System.Text.Json. Parse JSON strings, deserialize objects, work with arrays and nested data, read JSON files, and follow .NET best practices.">
+
+    <meta name="keywords"
+          content="Reading JSON in C#, Read JSON C#, System.Text.Json Tutorial, JSON Parsing in C#, Deserialize JSON C#, JSON Serialization C#, C# JSON Examples, Read JSON File C#, JSON Arrays C#, Nested JSON C#, C# API Response Parsing, JSON to Object C#, System.Text.Json Deserialize, C# JSON Best Practices, .NET JSON Tutorial">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="site.css">
+
+    <link rel="canonical" href="https://csharpdevhub.github.io/tutorial.github.io">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    C# Tutorials
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="privacy.html">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="terms-of-service.html">Terms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            <!-- Top Ad -->
+            <div class="ad-container">
+                <!-- Replace with AdSense Ad Unit -->
+            </div>
+
+
+
+            
+           <article class="tutorial-article">
+
+    <header class="article-header">
+
+        <h1>Reading JSON in C#: Complete Guide with Examples</h1>
+
+        <p class="article-meta">
+            Published: June 2026 |
+            Category: C# Fundamentals |
+            Reading Time: 10 Minutes
+        </p>
+
+        <p>
+            JSON (JavaScript Object Notation) is one of the most widely used
+            formats for exchanging data between applications. Modern APIs,
+            cloud services, mobile apps, and web applications frequently use
+            JSON because it is lightweight, human-readable, and easy to process.
+        </p>
+
+        <p>
+            In this tutorial, you'll learn how to read JSON in C# using
+            <code>System.Text.Json</code>, deserialize JSON into objects,
+            work with arrays, handle nested data structures, and apply
+            best practices for real-world .NET applications.
+        </p>
+
+    </header>
+    <br />
+    <div class="note">
+
+        <strong>Topics Covered</strong>
+
+        <ul>
+            <li>What is JSON?</li>
+            <li>Reading JSON strings</li>
+            <li>Deserializing objects</li>
+            <li>Working with JSON arrays</li>
+            <li>Reading nested JSON</li>
+            <li>Reading JSON files</li>
+            <li>Error handling</li>
+            <li>Best practices</li>
+        </ul>
+
+    </div>
+
+    <h2>What Is JSON?</h2>
+
+    <p>
+        JSON is a text-based format used to represent structured data.
+        It consists of key-value pairs and supports arrays, objects,
+        strings, numbers, booleans, and null values.
+    </p>
+
+    <p>
+        Example JSON:
+    </p>
+
+    <pre><code>
+        {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com"
+        }
+    </code></pre>
+
+    <p>
+        This data can easily be converted into C# objects.
+    </p>
+
+    <h2>System.Text.Json</h2>
+
+    <p>
+        Starting with .NET Core 3.0, Microsoft introduced
+        <code>System.Text.Json</code> as the recommended JSON library.
+    </p>
+
+    <p>
+        Benefits include:
+    </p>
+
+    <ul>
+        <li>High performance</li>
+        <li>Built into .NET</li>
+        <li>Minimal dependencies</li>
+        <li>Strong typing support</li>
+        <li>Easy serialization and deserialization</li>
+    </ul>
+
+    <h2>Create a C# Model</h2>
+
+    <p>
+        Before deserializing JSON, create a class that matches
+        the structure of the JSON data.
+    </p>
+
+    <pre><code>
+        public class User
+        {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = "";
+
+        public string Email { get; set; } = "";
+        }
+    </code></pre>
+
+    <h2>Deserialize a JSON String</h2>
+
+    <p>
+        Deserialization converts JSON into a C# object.
+    </p>
+
+    <pre><code>
+        using System.Text.Json;
+
+        string json = """
+        {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com"
+        }
+        """;
+
+        User? user =
+        JsonSerializer.Deserialize&lt;User&gt;(json);
+
+        Console.WriteLine(user?.Name);
+    </code></pre>
+
+    <h3>Output</h3>
+
+    <pre><code>
+        John Doe
+    </code></pre>
+
+    <h2>Working with JSON Arrays</h2>
+
+    <p>
+        APIs often return collections of objects.
+    </p>
+
+    <pre><code>
+        [
+        {
+        "id": 1,
+        "name": "John"
+        },
+        {
+        "id": 2,
+        "name": "Jane"
+        }
+        ]
+    </code></pre>
+
+    <p>
+        Deserialize the array into a list.
+    </p>
+
+    <pre><code>
+        List&lt;User&gt;? users =
+        JsonSerializer.Deserialize&lt;List&lt;User&gt;&gt;(json);
+
+        foreach (var user in users)
+        {
+        Console.WriteLine(user.Name);
+        }
+    </code></pre>
+
+    <h2>Reading Nested JSON</h2>
+
+    <p>
+        Real-world APIs frequently return nested objects.
+    </p>
+
+    <pre><code>
+        {
+        "id": 1,
+        "name": "John",
+        "address":
+        {
+        "city": "Manila",
+        "country": "Philippines"
+        }
+        }
+    </code></pre>
+
+    <p>
+        Create matching classes.
+    </p>
+
+    <pre><code>
+        public class Address
+        {
+        public string City { get; set; } = "";
+
+        public string Country { get; set; } = "";
+        }
+
+        public class User
+        {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = "";
+
+        public Address Address { get; set; } = new();
+        }
+    </code></pre>
+
+    <p>
+        The serializer automatically maps nested objects.
+    </p>
+
+    <h2>Reading Specific JSON Properties</h2>
+
+    <p>
+        Sometimes you only need a few values rather than a full model.
+    </p>
+
+    <pre><code>
+        using System.Text.Json;
+
+        JsonDocument document =
+        JsonDocument.Parse(json);
+
+        string name =
+        document.RootElement
+        .GetProperty("name")
+        .GetString() ?? "";
+
+        Console.WriteLine(name);
+    </code></pre>
+
+    <p>
+        This approach is useful when the structure is dynamic.
+    </p>
+
+    <h2>Reading JSON from a File</h2>
+
+    <p>
+        JSON data is often stored in files.
+    </p>
+
+    <pre><code>
+        string json =
+        File.ReadAllText("user.json");
+
+        User? user =
+        JsonSerializer.Deserialize&lt;User&gt;(json);
+    </code></pre>
+
+    <p>
+        This technique is commonly used for configuration,
+        imports, and local data storage.
+    </p>
+
+    <h2>Reading JSON from an API</h2>
+
+    <p>
+        Many applications retrieve JSON from REST APIs.
+    </p>
+
+    <pre><code>
+        HttpClient client = new HttpClient();
+
+        string json =
+        await client.GetStringAsync(
+        "https://api.example.com/users/1");
+
+        User? user =
+        JsonSerializer.Deserialize&lt;User&gt;(json);
+    </code></pre>
+
+    <p>
+        This combines HttpClient and System.Text.Json
+        to consume web services efficiently.
+    </p>
+
+    <h2>Case-Insensitive Property Names</h2>
+
+    <p>
+        JSON property names do not always match C# property casing.
+    </p>
+
+    <pre><code>
+        var options =
+        new JsonSerializerOptions
+        {
+        PropertyNameCaseInsensitive = true
+        };
+
+        User? user =
+        JsonSerializer.Deserialize&lt;User&gt;(
+        json,
+        options);
+    </code></pre>
+
+    <p>
+        This helps when integrating with third-party APIs.
+    </p>
+
+    <h2>Error Handling</h2>
+
+    <p>
+        Invalid JSON can cause exceptions.
+    </p>
+
+    <pre><code>
+        try
+        {
+        User? user =
+        JsonSerializer.Deserialize&lt;User&gt;(json);
+        }
+        catch (JsonException ex)
+        {
+        Console.WriteLine(ex.Message);
+        }
+    </code></pre>
+
+    <p>
+        Proper error handling improves application reliability.
+    </p>
+
+    <h2>Performance Considerations</h2>
+
+    <p>
+        System.Text.Json is optimized for performance and memory efficiency.
+    </p>
+
+    <p>
+        To improve performance further:
+    </p>
+
+    <ul>
+        <li>Reuse serializer options.</li>
+        <li>Avoid unnecessary conversions.</li>
+        <li>Deserialize only required data.</li>
+        <li>Use strongly typed models when possible.</li>
+    </ul>
+
+    <h2>Common Mistakes</h2>
+
+    <ul>
+        <li>Using mismatched property names.</li>
+        <li>Ignoring null values.</li>
+        <li>Skipping exception handling.</li>
+        <li>Creating overly complex models.</li>
+        <li>Assuming external JSON is always valid.</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+
+    <ul>
+        <li>Use System.Text.Json for modern .NET applications.</li>
+        <li>Create strongly typed models.</li>
+        <li>Validate incoming data.</li>
+        <li>Handle exceptions properly.</li>
+        <li>Keep JSON structures simple and maintainable.</li>
+    </ul>
+    <br />
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is the best JSON library for .NET?</h3>
+
+    <p>
+        For most applications, System.Text.Json is the recommended choice
+        because it is built into .NET and offers excellent performance.
+    </p>
+
+    <h3>Can I deserialize JSON directly into a class?</h3>
+
+    <p>
+        Yes. JsonSerializer.Deserialize() automatically maps JSON data
+        to matching C# properties.
+    </p>
+
+    <h3>How do I read JSON from an API?</h3>
+
+    <p>
+        Use HttpClient to retrieve the JSON string and then deserialize it
+        using JsonSerializer.
+    </p>
+
+    <h3>Can JSON contain nested objects?</h3>
+
+    <p>
+        Yes. Nested JSON structures can be represented using nested C# classes.
+    </p>
+
+    <h2>Related Tutorials</h2>
+
+    <ul>
+        <li><a href="using-httpclient-in-csharp.html">Using HttpClient in C#</a></li>
+        <li><a href="build-rest-api-in-aspnet-core.html">Build a REST API in ASP.NET Core</a></li>        
+        <li><a href="async-and-await-in-csharp.html">Async and Await in C#</a></li>
+        <li><a href="csharp-dictionary-examples.html">C# Dictionary Examples</a></li>
+        <li><a href="file-handling-in-aspnet-core.html">File Handling in ASP.NET Core</a></li>
+        <li><a href="exception-handling-in-csharp.html">Exception Handling in C#</a></li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>
+        Reading JSON is a fundamental skill for modern .NET developers.
+        Whether you're consuming APIs, processing files, or exchanging
+        data between systems, System.Text.Json provides a fast and reliable solution.
+    </p>
+
+    <p>
+        By understanding deserialization, arrays, nested objects,
+        file handling, and error management, you can confidently work with
+        JSON data in real-world C# applications.
+    </p>
+
+</article>
+
+
+
+            
+            <!-- Bottom Ad -->
+            <div class="ad-container">
+
+                <!-- Replace with AdSense Ad Unit -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer class="text-center mt-5 p-4 border-top">
+
+        <div class="footer-links mb-3">
+
+            <a class="footerLink" href="index.html">Home</a> |
+            <a class="footerLink" href="about-us.html">About Us</a> |
+            <a class="footerLink" href="contact.html">Contact</a> |
+            <a class="footerLink" href="privacy.html">Privacy</a> |
+            <a class="footerLink" href="terms-of-service.html">Terms of Service</a> |
+            <a class="footerLink" href="disclaimer.html">Disclaimer</a>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 CSharpHub. All Rights Reserved.
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
