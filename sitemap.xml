@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
         <loc>https://csharpdevhub.github.io/tutorial.github.io/</loc>
@@ -9,39 +8,273 @@
     </url>
 
     <url>
-        <loc>https://csharpdevhub.github.io/tutorial.github.io/about-us.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://csharpdevhub.github.io/tutorial.github.io/contact.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://csharpdevhub.github.io/tutorial.github.io/privacy-policy.html</loc>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
-        <loc>https://csharpdevhub.github.io/tutorial.github.io/terms-of-service.html</loc>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
-        <loc>https://csharpdevhub.github.io/tutorial.github.io/disclaimer.html</loc>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
-        <loc>https://csharpdevhub.github.io/tutorial.github.io/tutorials/logging-in-aspnet-core.html</loc>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/csharp-basics-for-beginners.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/oop-in-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/linq-in-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/entity-framework-core.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/aspnet-core-web-development.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/aspnet-core-web-api.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/windows-desktop-applications-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/csharp-aspnet-core-interview-questions.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/csharp-interview-questions.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/async-await-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/entity-framework-core-crud.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/linq-cheat-sheet-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/reading-json-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/build-rest-api-aspnet-core.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/csharp-string-manipulation.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/working-with-lists-in-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/csharp-dictionary-examples.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/csharp-exception-handling.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/dependency-injection-aspnet-core.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/jwt-authentication-aspnet-core.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/file-handling-aspnet-core.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/csharp-best-coding-practices.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/how-to-reverse-a-string-in-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/stringbuilder-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/working-with-arrays-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/what-is-a-thread-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/understanding-tasks-dotnet.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/task-run-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/thread-vs-task-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/using-httpclient-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/background-services-dotnet.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/aspnet-core-mvc-tutorial.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/repository-pattern-aspnet-core.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/aspnet-core-middleware.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/entity-framework-core-migrations.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/email-sending-aspnet-core.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/csharp-datetime-guide.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/generics-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/delegates-and-events-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/unit-testing-xunit-dotnet.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/signalr-real-time-applications-aspnet-core.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/consume-external-apis-aspnet-core.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/working-with-xml-csharp.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/configuration-appsettings-json-aspnet-core.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://csharpdevhub.github.io/tutorial.github.io/csharp-interview-questions.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
     </url>
 
 </urlset>
