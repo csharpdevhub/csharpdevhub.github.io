@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://csharpdevhub.github.io/tutorial.github.io/sitemap.xml
+Sitemap: https://csharpdevhub.github.io/sitemap.xml
